@@ -2,83 +2,82 @@
 
 **Turning Ideas into Reality.**
 
-Welcome to the **Zaibten 3D Marketing Website** — a creative web experience designed to showcase modern digital marketing, immersive 3D visuals, interactive animations, and innovative brand storytelling.
+A modern and visually engaging 3D marketing website developed with **HTML and CSS** and deployed on **Vercel**. This project focuses on creative visual presentation, immersive design, and an engaging user experience for digital marketing.
 
 ## ✨ Features
 
-- 🌐 Modern and immersive website design
-- 🎨 Interactive 3D visuals and animations
-- 📱 Responsive layouts for desktop, tablet, and mobile
-- ⚡ Smooth transitions and engaging interactions
-- 🎯 Marketing-focused landing page and calls to action
-- 🧩 Modular and maintainable components
-- 🚀 Performance-conscious web experience
-- 💼 Professional presentation for brands and digital services
+- 🎨 Modern 3D-inspired visual design
+- 🌐 Creative marketing website layout
+- 📱 Responsive design for different screen sizes
+- ✨ CSS-based animations and visual effects
+- 🎯 Engaging sections for brand and service promotion
+- ⚡ Lightweight frontend built with HTML and CSS
+- 🚀 Deployment through Vercel
 
-## 🛠️ Technology Stack
+## 🛠️ Tech Stack
 
-Adapt this list to match the technologies actually used in the project.
-
-- **Frontend:** React / Next.js
-- **Styling:** CSS / Tailwind CSS
-- **3D Graphics:** Three.js / React Three Fiber
-- **Animation:** GSAP / Framer Motion
-- **Development Tools:** Git and GitHub
+- **HTML5** — Website structure
+- **CSS3** — Styling, layouts, animations, and visual effects
+- **Vercel** — Website deployment and hosting
 
 ## 📂 Project Structure
 
 ```text
 3D-Marketing-Website/
-├── public/
+├── index.html
+├── style.css
+├── assets/
 │   ├── images/
 │   └── models/
-├── src/
-│   ├── components/
-│   ├── sections/
-│   ├── assets/
-│   ├── styles/
-│   └── App.jsx
-├── package.json
 ├── README.md
 └── .gitignore
 ```
 
-*Adjust the structure to match your actual project.*
+*Update the file and folder names to match your actual project.*
 
-## ⚙️ Getting Started
+## 🚀 Live Demo
 
-### Prerequisites
+🌐 **Live Website:** Add your deployed Vercel URL here.
 
-- Node.js and npm
-- Git
+## 💻 Run Locally
 
-### Installation
+1. Clone the repository:
 
-```bash
-git clone https://github.com/Zaibten/3D-Marketing-Website.git
-cd 3D-Marketing-Website
-npm install
-npm run dev
-```
+   ```bash
+   git clone https://github.com/Zaibten/3D-Marketing-Website.git
+   ```
 
-Open the local URL displayed in your terminal.
+2. Open the project folder:
 
-> These commands assume a Node.js project with a configured development script.
+   ```bash
+   cd 3D-Marketing-Website
+   ```
 
-## 🎯 Project Goals
+3. Open `index.html` in your browser, or use the Live Server extension in Visual Studio Code.
 
-- Create an engaging 3D digital marketing experience.
-- Demonstrate modern frontend development and interactive design.
-- Present brand messaging through immersive visual storytelling.
-- Deliver an accessible and responsive user experience.
+## ☁️ Deployment
+
+This project is deployed using [Vercel](https://vercel.com/).
+
+To deploy your own copy:
+
+1. Push the project to GitHub.
+2. Import the repository into Vercel.
+3. Configure the project as a static website if required.
+4. Deploy and access your live website.
+
+## 🎯 Project Objectives
+
+- Showcase creative frontend development using HTML and CSS.
+- Explore 3D-inspired design and visual storytelling.
+- Create an engaging online marketing experience.
+- Deliver a responsive and accessible website.
 
 ## 🏢 About Zaibten
 
 **Zaibten Info — Software Solutions**
 
-Turning Ideas into Reality.
-
-We explore creative technology and build digital experiences across web development, mobile applications, custom software, UI/UX, AI solutions, and digital marketing.
+*Turning Ideas into Reality.*
 
 🌐 Website: https://zaibteninfo.com  
 💻 GitHub: https://github.com/Zaibten  
@@ -86,7 +85,7 @@ We explore creative technology and build digital experiences across web developm
 
 ## 📄 License
 
-Choose and add a license that matches how you want this project to be used. For example, the MIT License.
+Add a license file if you intend to distribute this project for reuse. Choose a license that matches your intended permissions.
 
 ---
 
