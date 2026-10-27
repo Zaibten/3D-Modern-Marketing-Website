@@ -235,6 +235,7 @@ section:not(.vis) *{animation-play-state:paused!important}
 .btn.o:hover{background:var(--gold);color:var(--brown);border-color:var(--gold)}
 .btn:hover,.btn:focus-visible{color:var(--brown)}.btn.o:not(:hover){color:inherit}
 body.light nav a:not(.btn):hover,body.light .ci a:hover{color:var(--mid)}
+@media(max-width:800px){section{content-visibility:visible}}
 </style></head>
 <body class="dark">
 <div id="pb"></div><div id="pre"><img id="preimg" alt="Medagency"><i></i></div><div id="ring"></div><div id="iris"></div><button id="btt" aria-label="Back to top"><svg viewBox="0 0 48 48"><circle class="tr" cx="24" cy="24" r="21"/><circle id="tp" cx="24" cy="24" r="21" pathLength="100"/><path d="M24 32V17M17 24l7-7 7 7"/></svg></button>
@@ -339,8 +340,8 @@ const SC=[{bg:'#2b1d13',t:'dark',w:[1.3,0,0,0,0,0],x:2.6},{bg:'#F4EBDD',t:'light
 const PAL={dark:[0xCE9C38,0xD9C3A0,0xF4EBDD],light:[0x6B4E37,0xCE9C38,0x443124]};
 const CZ=[7,9,7.5,9,9,8,6.5,9,9,6.5,9];let ly=0,vel=0,cur=0,vi=0,spin=0,mx=0,my=0;const col=new THREE.Color(),tgt=new THREE.Color(PAL.dark[0]);
 let ready=0,pend=0;function go(i){if(!ready){pend=i;return}if(i===cur&&document.body.dataset.i)return;cur=i;document.body.dataset.i=1;const s=SC[i];document.body.className=s.t;document.body.style.background=s.bg;tgt.set(PAL[s.t][vi%3]);spin+=10;
- bgT.set(s.bg);hs.textContent=NAMES[i];secs.forEach((e,k)=>e.classList.toggle('on',k===i));if(secs[i].id==='work')count();iris.classList.remove('go');void iris.offsetWidth;iris.classList.add('go');[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i))}
-new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)go(secs.indexOf(e.target))}),{threshold:.5}).observe&&secs.forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)go(secs.indexOf(s))}),{threshold:.5}).observe(s));
+ bgT.set(s.bg);hs.textContent=NAMES[i];secs.forEach((e,k)=>{if(k===i)e.classList.add('on');else if(!e.classList.contains('vis'))e.classList.remove('on')});if(secs[i].id==='work')count();iris.classList.remove('go');void iris.offsetWidth;iris.classList.add('go');[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i))}
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)go(secs.indexOf(e.target))}),{threshold:.5}).observe&&secs.forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(ready)s.classList.add('on');if(e.intersectionRect.height>=Math.min(e.boundingClientRect.height*.5,innerHeight*.4))go(secs.indexOf(s))}}),{threshold:[.05,.2,.35,.5,.65]}).observe(s));
 addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
 addEventListener('click',e=>{if(e.target.closest('a,button,input,textarea'))return;vi++;tgt.set(PAL[SC[cur].t][vi%3]);spin+=14;
  const r=document.createElement('span');r.className='rp';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);setTimeout(()=>r.remove(),900)});
