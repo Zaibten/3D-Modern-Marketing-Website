@@ -594,7 +594,19 @@ body:not(.light) .spot::before{background:radial-gradient(260px circle at var(--
 <div class="fl" tabindex="0"><div class="fi"><div class="ff"><div class="av">K</div><h3>Dr. K. Mehmood</h3><small>Multi-specialty hospital</small></div><div class="fb2"><p>“Our monthly reels finally look as professional as the care we give.”</p></div></div></div>
 </div></div></section>
 
-<section id="team" data-s="4"><div class="w"><h2>Meet the team</h2><p>Message any of us directly on WhatsApp.</p><div class="team" id="tg"></div></div></section>
+<section id="team" data-s="4"><div class="w"><h2>Meet the team</h2><p>Message any of us directly on WhatsApp.</p><div class="team" id="tg"></div></div></section><style>.team .tb{font-size:.88rem;line-height:1.55;min-height:6.2em;opacity:.85;margin:0 0 .7rem;max-width:none;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+.team{grid-template-columns:repeat(8,minmax(0,1fr));gap:1.6rem;max-width:1200px;margin:2rem auto 0}
+.team .card{grid-column:span 2;display:flex;flex-direction:column;align-items:flex-start;padding:2rem 1.5rem 1.7rem}
+.team .card:nth-child(5){grid-column:2 / span 2}
+.team .card h3{font-size:1.25rem;line-height:1.25;min-height:2.5em}
+.team .card small{font-size:.85rem;line-height:1.35;min-height:2.7em;margin-bottom:1rem}
+.team .card.open .tb{display:block;-webkit-line-clamp:unset;overflow:visible}
+.team .tact{margin-top:auto;display:flex;flex-direction:column;align-items:flex-start;gap:.8rem;width:100%}
+.team .tmore{visibility:hidden;background:none;border:0;padding:0;font:600 .85rem Montserrat,sans-serif;letter-spacing:.04em;color:var(--gold,#CE9C38);cursor:pointer;border-bottom:1px solid currentColor;line-height:1.3}
+.team .tmore.on{visibility:visible}
+.team .tmore:focus-visible{outline:2px solid var(--gold,#CE9C38);outline-offset:3px}
+@media(max-width:1000px){.team{grid-template-columns:repeat(4,minmax(0,1fr))}.team .card:nth-child(5){grid-column:span 2}.team .card:nth-child(7){grid-column:2 / span 2}}
+@media(max-width:620px){.team{grid-template-columns:minmax(0,1fr);max-width:420px}.team .card,.team .card:nth-child(5),.team .card:nth-child(7){grid-column:auto}}section.on .team .card:nth-child(5){animation-delay:.48s}section.on .team .card:nth-child(6){animation-delay:.6s}section.on .team .card:nth-child(7){animation-delay:.72s}</style>
 
 <section id="contact" data-s="5" data-t="light"><div class="c"><h2>Let’s plan your next video</h2>
 <form id="f"><input id="fn" placeholder="Your name" required><input id="fp" placeholder="Phone number"><textarea id="fm" rows="4" placeholder="Tell us about your clinic and what you need" required></textarea><button class="btn" type="submit">Send on WhatsApp</button></form>
@@ -980,7 +992,7 @@ transition:opacity .6s ease,visibility .6s ease}
 <script>
 /* ===== EDIT HERE ===== */
 const WA='923490019446';                       // main WhatsApp number, country code, no + or spaces
-const TEAM=[{n:'Ayesha Khan',r:'Creative Director',wa:'923490019446'},{n:'Hassan Ali',r:'Lead Videographer',wa:'923490019446'},{n:'Sara Malik',r:'Content Strategist',wa:'923490019446'},{n:'Omar Sheikh',r:'Client Manager',wa:'923490019446'}];
+const TEAM=[{n:'Hina Hasnain Khan',r:'Founder',s:'Hina',b:'Founded Medagency in 2025 and leads strategy and communication for clients including Dr. Anmol, Ponds, Dove, Dr. Fatima and Malik Dental Associates. National rowing player nominated for the 2017 Olympics in water rowing, inter-varsity judo-karate champion (2012), former school HOD in Islamabad, and author of three curriculum books on Islamic themes and gender stereotypes.',wa:'923490019446'},{n:'Syeda Komal Naqvi',r:'Project Manager',s:'Komal',b:'Keeps every project on track, from the first brief and shoot day to the final publish date.',wa:'923490019446'},{n:'Ameerdad Choudhary',r:'Legal Advisor, Senior In-House Counsel',s:'Ameerdad',b:'University of London LLB graduate. Handles contract negotiation, documentation and regulatory compliance for Medagency clients.',wa:'923490019446'},{n:'Alishba Iftikhar',r:'Doctor (MBBS), Medical Content Advisor',s:'Alishba',b:'Assists with scripts and confirms the medical accuracy of our content before it goes live.',wa:'923490019446'},{n:'Amna Khan',r:'Registered Dietitian (RDN)',s:'Amna',b:'Human Nutrition and Dietetics, National University of Medical Sciences. A nutritionist who has helped transform many patients, she supports content for wellness studios and bridges the gap between aesthetic content and patient demand.',wa:'923490019446'},{n:'Zohaib Mir',r:'Director of Photography (DOP)',s:'Zohaib',b:'Leads the cinematography and visual look of our shoots.',wa:'923490019446'},{n:'Saqib',r:'Photographer and Videographer',s:'Saqib',b:'Shoots the photography and video behind our clients’ content.',wa:'923490019446'}];
 const APP={name:'MedBook',shots:['','','',''],  // put screenshot paths here, e.g. shots:['img/book.png','img/ai.png','img/remind.png','img/records.png']
 tabs:[{n:'Book',t:'Book in three taps',d:'Pick a doctor, choose a slot and confirm. Patients see real-time availability.',f:['Real-time doctor availability','Instant confirmation','Reschedule or cancel in one tap']},
 {n:'AI Assistant',t:'An assistant that understands patients',d:'Patients describe how they feel and the assistant suggests the right specialist and the best slot.',f:['Symptom-based doctor matching','Suggests the best available time','Hands over to your front desk when needed']},
@@ -991,7 +1003,10 @@ const link=(n,t)=>`https://wa.me/${n}?text=${encodeURIComponent(t)}`;
 document.getElementById('waf').href=link(WA,'Hi Medagency, I’d like to know more.');
 document.querySelectorAll('[data-wa]').forEach(a=>{a.href=link(WA,a.dataset.wa);a.target='_blank';a.rel='noopener'});
 const tg=document.getElementById('tg');
-TEAM.forEach(m=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<div class="av">${m.n[0]}</div><h3>${m.n}</h3><small>${m.r}</small><a class="btn" target="_blank" rel="noopener" href="${link(m.wa,'Hi '+m.n.split(' ')[0]+', I found you on the Medagency website.')}">Message ${m.n.split(' ')[0]}</a>`;tg.appendChild(d)});
+TEAM.forEach(m=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<div class="av">${m.n[0]}</div><h3>${m.n}</h3><small>${m.r}</small>${m.b?`<p class="tb">${m.b}</p>`:''}<div class="tact"><button type="button" class="tmore" aria-expanded="false">See more</button><a class="btn" target="_blank" rel="noopener" href="${link(m.wa,'Hi '+(m.s||m.n.split(' ')[0])+', I found you on the Medagency website.')}">Message ${(m.s||m.n.split(' ')[0])}</a></div>`;tg.appendChild(d)});
+const tmFit=()=>tg.querySelectorAll('.card').forEach(c=>{const p=c.querySelector('.tb'),b=c.querySelector('.tmore');if(!p||!b)return;b.classList.toggle('on',c.classList.contains('open')||p.scrollHeight>p.clientHeight+1)});
+tg.addEventListener('click',e=>{const b=e.target.closest('.tmore');if(!b)return;const c=b.closest('.card'),o=c.classList.toggle('open');b.textContent=o?'Show less':'See more';b.setAttribute('aria-expanded',o)});
+tmFit();addEventListener('resize',tmFit);addEventListener('load',tmFit);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(tmFit);
 document.querySelectorAll('.card,.fr').forEach(c=>{c.onpointermove=e=>{if(isLite)return;const b=c.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;c.style.setProperty('--px',x*26);c.style.setProperty('--py',y*26);c.style.setProperty('--mx',(x+.5)*100+'%');c.style.setProperty('--my',(y+.5)*100+'%');c.style.transform=`rotateY(${x*22}deg) rotateX(${-y*22}deg)`};c.onpointerleave=()=>{c.style.transform='';c.style.setProperty('--px',0);c.style.setProperty('--py',0)}});
 document.getElementById('f').onsubmit=e=>{e.preventDefault();const t=`Hi Medagency, I’m ${fn.value}${fp.value?' ('+fp.value+')':''}. ${fm.value}`;window.open(link(WA,t),'_blank')};
 const secs=[...document.querySelectorAll('section')],dots=document.getElementById('dots');
