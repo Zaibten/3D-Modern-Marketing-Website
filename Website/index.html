@@ -684,6 +684,36 @@ section.on #hv .hv-chat{animation:hin .9s cubic-bezier(.2,.8,.2,1) backwards,hfl
  .h3d-orb2{--R2:120px}.h3d-o2s span{left:-32px;width:64px;height:22px;top:-11px}.h3d-o2s .f{font-size:.56rem;line-height:22px}
 }
 </style>
+<style>
+/* ===== hero v4: cinematic WebGL gold + curved reel wall ===== */
+.h4-gl{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block;opacity:0;transition:opacity 1.4s;pointer-events:none;background:radial-gradient(55% 75% at 72% 48%,rgba(120,84,52,.55),transparent 70%),linear-gradient(135deg,#1d140d,#2f2117 60%,#1d140d)}.h4-gl.on{opacity:1}
+.h3d-cube,.h3d-arm,.h3d-orb2,.h3d-word,.h3d-beam,.h3d-spot,.h3d-bgv,#hv .hv-main,#hv .hv-b,#hv .hv-ecg,.h3d-p{display:none!important}
+#hero .hv{--R:560px;--cw:158px;--chh:226px;perspective:1700px;perspective-origin:50% 44%}
+.h3d-ring{top:47%;transform:none}
+.h3d-floor{opacity:.55;transform:translateY(215px) rotateX(90deg)}
+.h3d-spin{animation:h4wall 20s ease-in-out infinite alternate!important}
+@keyframes h4wall{from{transform:rotateY(-9deg)}to{transform:rotateY(9deg)}}
+.h3d-spin span{transform:rotateY(calc(180deg + (var(--i) - 3.5)*12.5deg)) translateZ(var(--R)) rotateY(180deg)!important}
+.h3d-spin .f{border:1px solid rgba(255,255,255,.22);box-shadow:0 30px 60px rgba(0,0,0,.55);filter:saturate(1.05)}
+.h3d-spin .f::before{display:none}
+#hv .hv-phone{width:206px;height:412px;margin:-206px 0 0 -103px;top:47%;border-radius:36px;transform:translateZ(120px);box-shadow:0 60px 110px rgba(0,0,0,.65),0 0 0 1.5px rgba(255,255,255,.22),0 0 90px rgba(206,156,56,.3)}
+#hv .hv-stat{right:1%;top:6%;width:176px;transform:translateZ(230px) rotateY(-14deg)}
+#hv .hv-chat{left:0;bottom:12%;width:224px;transform:translateZ(260px) rotateY(14deg)}
+.h4-k{display:inline-flex;align-items:center;gap:.7rem;font:600 .74rem/1 Montserrat,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#CE9C38;margin-bottom:1.1rem}
+.h4-k i{width:36px;height:1px;background:#CE9C38;display:block}
+.h4-t{display:flex;gap:1.6rem;margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.16);max-width:470px}
+.h4-t div{font:500 .72rem/1.4 Montserrat,sans-serif;letter-spacing:.06em;color:rgba(244,235,221,.72)}.h4-t b{display:block;font:500 1.55rem/1.1 Jost,sans-serif;color:#F4EBDD;letter-spacing:0}
+.h4-sc{position:absolute;left:50%;bottom:1.2rem;z-index:3;translate:-50% 0;display:flex;flex-direction:column;align-items:center;gap:.5rem;font:600 .62rem/1 Montserrat,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,235,221,.7);text-decoration:none;opacity:calc(1 - var(--hp,0)*4)}
+.h4-sc i{display:block;width:1px;height:38px;background:linear-gradient(#CE9C38,transparent);transform-origin:top;animation:h4s 2s ease-in-out infinite}@keyframes h4s{0%{scale:1 0}50%{scale:1 1}100%{scale:1 1;opacity:0}}
+@media(max-width:900px){
+ #hero .hv{--R:215px;
+ .h3d-spin span{transform:rotateY(calc(180deg + (var(--i) - 3.5)*10.5deg)) translateZ(var(--R)) rotateY(180deg)!important}--cw:84px;--chh:120px;perspective:1000px}
+ #hv .hv-phone{width:128px;height:256px;margin:-128px 0 0 -64px;border-radius:24px;top:47%}
+ .h3d-floor{transform:translateY(125px) rotateX(90deg)}
+ .h4-t,.h4-sc{display:none}
+ #hv .hv-stat{width:104px!important;transform:translateZ(120px) rotateY(-10deg)!important}#hv .hv-chat{width:132px!important;transform:translateZ(130px) rotateY(10deg)!important;bottom:14%!important}
+}
+</style>
 </head>
 <body class="dark"><div id="bgs" aria-hidden="true"><i></i><i></i></div>
 <div id="pb"></div><div id="pre"><img id="preimg" alt="Medagency"><i></i></div><button id="btt" aria-label="Back to top"><svg viewBox="0 0 48 48"><circle class="tr" cx="24" cy="24" r="21"/><circle id="tp" cx="24" cy="24" r="21" pathLength="100"/><path d="M24 32V17M17 24l7-7 7 7"/></svg></button>
@@ -1150,7 +1180,7 @@ const secs=[...document.querySelectorAll('section')],dots=document.getElementByI
 secs.forEach((s,i)=>{const a=document.createElement('a');a.href='#'+s.id;a.setAttribute('aria-label',s.id);dots.appendChild(a)});
 
 const LOW=(navigator.hardwareConcurrency||8)<=4||(navigator.deviceMemory||8)<=4||innerWidth<700||(navigator.connection&&navigator.connection.saveData)||matchMedia('(prefers-reduced-motion:reduce)').matches;
-let isLite=LOW,DH=document.documentElement.scrollHeight,mx=0,my=0,vel=0,lsy=0,VT0=0;const VID={};if(LOW)document.documentElement.classList.add('lite');
+let isLite=LOW,DH=document.documentElement.scrollHeight,mx=0,my=0,vel=0,lsy=0,VT0=0;const VID={0:'media/svc-0.mp4',1:'media/svc-1.mp4',3:'media/svc-3.mp4',5:'media/svc-5.mp4',6:'media/svc-6.mp4',7:'media/svc-7.mp4',8:'media/svc-8.mp4',9:'media/svc-9.mp4'};if(LOW)document.documentElement.classList.add('lite');
 const vs=i=>secs[i].classList.contains('vis');
 const SC=[{bg:'#2b1d13',t:'dark'},{bg:'#FFFFFF',t:'light'},{bg:'#1d140d',t:'dark'},{bg:'#FBF7F0',t:'light'},{bg:'#F4EBDD',t:'light'},{bg:'#1d140d',t:'dark'},{bg:'#FFFFFF',t:'light'},{bg:'#FBF7F0',t:'light'},{bg:'#F4EBDD',t:'light'},{bg:'#FFFFFF',t:'light'},{bg:'#FBF7F0',t:'light'},{bg:'#2b1d13',t:'dark'}];
 let cur=0,ready=0,pend=0;
@@ -1322,7 +1352,7 @@ function svBody(i,full){const s=SVC[i],D=s[4],W=full?(LOW?640:1120):(LOW?480:800
  const bk=t=>`<a class="btn" target="_blank" rel="noopener" href="${q(t)}">Book a Discovery Call</a>`;
  const tierH=t=>`<div class="pkc${t.best?' best':''}${t.size?' '+t.size:''}">${t.best?`<em class="bst">${t.best}</em>`:''}<h4>${t.n}</h4>${t.price?`<div class="pr2"><b>${t.price}</b>${t.per?` <span>${t.per}</span>`:''}</div>`:''}${t.items?`<ul>${t.items.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}${t.cta!==false?bk(t.n):''}</div>`;
  const li=x=>Array.isArray(x)?`<li><b>${x[0]}.</b> ${x[1]}</li>`:`<li>${x}</li>`;
- const media=VID[i]?`<video class="vc" src="${VID[i]}" muted loop autoplay playsinline></video>`:`<canvas class="vc" width="${W}" height="${Hh}"></canvas>`;
+ const media=VID[i]?`<video class="vc" src="${VID[i]}" poster="${VID[i].replace('.mp4','.jpg')}" muted loop autoplay playsinline preload="auto"></video>`:`<canvas class="vc" width="${W}" height="${Hh}"></canvas>`;
  const vid=D.pf?pfHTML():`<div class="vid">${media}<span class="ai">AI preview</span>${VID[i]?'':'<span class="vt">00:00 / 00:09</span><button class="pp" type="button" aria-label="Pause or play">❚❚</button><div class="cap"></div><div class="vp"><i></i></div>'}${full?'':'<button class="fv" type="button" data-full>Full view</button>'}</div>`;
  return (D.msg?`<div class="sv-msg">${D.msg}</div>`:'')+vid
  +`<div class="hd"><svg class="ic" viewBox="0 0 120 120">${s[3]}</svg><h3>${D.h}</h3></div>`
@@ -1516,7 +1546,7 @@ const mob=matchMedia('(max-width:900px)').matches,rm=matchMedia('(prefers-reduce
 const C=[['01','Social reels'],['02','Doctor films'],['03','Meta ads'],['04','SEO & AI search'],['06','Talking heads'],['07','Behind the scenes'],['08','Patient guides'],['09','3D websites']],vids=[];
 C.forEach((c,i)=>{const s=document.createElement('span');s.style.setProperty('--i',i);s.innerHTML='<div class="f" data-l="'+c[1]+'"></div><div class="k"></div>';const f=s.firstChild;f.style.backgroundImage="url(media/reel-"+c[0]+".jpg),linear-gradient(135deg,#6B4E37,#2b1d13)";
  if(!noVid&&!(mob&&i%2)){const v=document.createElement('video');v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('muted','');v.preload='none';v.poster='media/reel-'+c[0]+'.jpg';v.dataset.src='media/hero-'+c[0]+'.mp4';f.appendChild(v);vids.push(v)}sp.appendChild(s)});
-if(!noVid&&!mob&&!(typeof LOW!=='undefined'&&LOW)){const v=document.createElement('video');v.className='h3d-bgv';v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('muted','');v.preload='none';v.dataset.src='media/hero-bg.mp4';hero.insertBefore(v,hero.firstChild);vids.push(v)}
+if(false){const v=document.createElement('video');v.className='h3d-bgv';v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('muted','');v.preload='none';v.dataset.src='media/hero-bg.mp4';hero.insertBefore(v,hero.firstChild);vids.push(v)}
 const spot=document.createElement('div');spot.className='h3d-spot';hero.insertBefore(spot,hero.firstChild);
 const beam=document.createElement('div');beam.className='h3d-beam';beam.setAttribute('aria-hidden','true');const w=hv.querySelector('.h3d-world');w&&w.insertBefore(beam,w.firstChild);
 let vis=true;const sync=()=>{vids.forEach(v=>{if(vis&&!document.hidden){if(!v.src)v.src=v.dataset.src;const p=v.play();p&&p.then&&p.then(()=>{if(v.classList.contains('h3d-bgv'))v.classList.add('on');else v.parentNode.classList.add('pl')}).catch(()=>{})}else v.pause()})};
@@ -1531,14 +1561,14 @@ let s=0;const hp=()=>{s=0;hero.style.setProperty('--hp',Math.max(0,Math.min(1,sc
 /* hero 3D v3: cubes, armillary spheres, tilted tag orbit, gyro + drag camera, momentum spin */
 (()=>{const hero=document.getElementById('hero'),hv=document.getElementById('hv'),w=hv&&hv.querySelector('.h3d-world'),sp=document.getElementById('h3s');if(!hero||!w)return;
 const mob=matchMedia('(max-width:900px)').matches,rm=matchMedia('(prefers-reduced-motion:reduce)').matches;if(rm)return;
-const add=(h,css)=>{const d=document.createElement('div');d.className=h[0];d.style.cssText=css;d.innerHTML=h[1];w.appendChild(d)};
+const add=()=>{};
 const cube='<i></i><i></i><i></i><i></i><i></i><i></i>',arm='<i></i><i></i><i></i><i></i>';
 add(['h3d-cube',cube],'--s:'+(mob?34:68)+'px;--z:-70px;--t:17s;left:7%;top:18%');
 add(['h3d-cube',cube],'--s:'+(mob?22:42)+'px;--z:140px;--t:11s;left:84%;top:68%');
 add(['h3d-arm',arm],'--s:'+(mob?56:112)+'px;--z:-150px;--t:15s;left:18%;top:40%');
 add(['h3d-arm',arm],'--s:'+(mob?30:58)+'px;--z:90px;--t:10s;left:76%;top:14%');
 const T=['SEO','Reels','Ads','AI','3D Web','App'],o=document.createElement('div');o.className='h3d-orb2';o.setAttribute('aria-hidden','true');const s2=document.createElement('div');s2.className='h3d-o2s';
-T.forEach((t,i)=>{const s=document.createElement('span');s.style.setProperty('--i',i);s.innerHTML='<div class="f">'+t+'</div><div class="k"></div>';s2.appendChild(s)});o.appendChild(s2);w.appendChild(o);
+T.forEach((t,i)=>{const s=document.createElement('span');s.style.setProperty('--i',i);s.innerHTML='<div class="f">'+t+'</div><div class="k"></div>';s2.appendChild(s)});o.appendChild(s2);
 /* camera: gyro on phones, finger drag, pointer */
 const tilt=(x,y)=>{hero.style.setProperty('--px',x.toFixed(3));hero.style.setProperty('--py',y.toFixed(3));hv.style.setProperty('--mx',x.toFixed(3));hv.style.setProperty('--my',y.toFixed(3))},cl=(v,a)=>Math.max(-a,Math.min(a,v));
 if(window.DeviceOrientationEvent){const on=e=>{if(e.gamma==null)return;tilt(cl(e.gamma/55,.5),cl((e.beta-50)/75,.5))},go=()=>addEventListener('deviceorientation',on,true);
@@ -1552,6 +1582,68 @@ let an=null,rate=1,tgt=1,run=false,ly=scrollY;const spin=()=>{an=an||(sp&&sp.get
 new IntersectionObserver(es=>{run=es[0].isIntersecting;if(run)requestAnimationFrame(spin)},{threshold:.05}).observe(hero);
 addEventListener('scroll',()=>{const d=Math.abs(scrollY-ly);ly=scrollY;tgt=Math.min(8,tgt+d*.04)},{passive:true});
 let px=0;addEventListener('pointermove',e=>{const d=Math.abs(e.clientX-px);px=e.clientX;if(e.pointerType==='mouse')tgt=Math.min(5,tgt+d*.01)},{passive:true});
+})();
+</script>
+<script>
+/* hero v5: DNA helix + ECG + rising reach particles (WebGL) + kicker, trust row, scroll cue */
+(()=>{const hero=document.getElementById('hero');if(!hero)return;
+const c=hero.querySelector('.c'),row=c&&c.querySelector('.row'),h1=c&&c.querySelector('h1');
+if(h1&&!c.querySelector('.h4-k')){const k=document.createElement('div');k.className='h4-k';k.innerHTML='<i></i>Healthcare marketing studio';h1.parentNode.insertBefore(k,h1)}
+if(row&&!c.querySelector('.h4-t')){const t=document.createElement('div');t.className='h4-t';t.innerHTML='<div><b>150+</b>videos produced</div><div><b>40+</b>clinics served</div><div><b>100%</b>doctor-approved scripts</div>';row.parentNode.insertBefore(t,row.nextSibling)}
+const cue=document.createElement('a');cue.className='h4-sc';cue.href='#services';cue.innerHTML='Scroll<i></i>';hero.appendChild(cue);
+if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+const cv=document.createElement('canvas');cv.className='h4-gl';cv.setAttribute('aria-hidden','true');
+const gl=cv.getContext('webgl',{antialias:true,alpha:true,premultipliedAlpha:true,powerPreference:'high-performance'});if(!gl)return;
+const VS=`attribute vec4 a;attribute vec4 b;
+uniform float T,Z,P,asp,px,D;uniform vec2 M,O;
+varying float vA,vC,vT;
+float ecg(float u){u=fract(u);return .1*exp(-pow((u-.2)*9.,2.))-.16*exp(-pow((u-.46)*45.,2.))+1.05*exp(-pow((u-.5)*70.,2.))-.26*exp(-pow((u-.55)*45.,2.))+.22*exp(-pow((u-.78)*9.,2.));}
+void main(){float ty=a.w;vec3 p;float al=1.,c=0.,sz=a.z;
+if(ty<1.5){float th=a.x*1.7+a.y+T*.45+Z*3.;float r=1.+.09*sin(a.x*3.+T);p=vec3(r*cos(th),a.x,r*sin(th));c=smoothstep(.75,0.,abs(a.x-P));al=.85;}
+else if(ty<2.5){float y=mod(a.x+T*b.z+4.,8.)-4.;p=vec3(b.x,y,b.y);al=(.25+.5*abs(sin(T*.8+b.w)))*smoothstep(-4.,-2.5,y)*smoothstep(4.,2.5,y);}
+else{float x=b.x;p=vec3(x,ecg(x*.26-T*.32)*.9-2.6,-2.);al=smoothstep(-2.,1.,x)*smoothstep(9.,6.,x)*.7*D;c=.0;}
+if(ty<1.5&&D<.5){p*=.42;al*=.7;}
+float cy=cos(M.x*.7),sy=sin(M.x*.7);p.xz=mat2(cy,-sy,sy,cy)*p.xz;
+float cx=cos(M.y*.4),sx=sin(M.y*.4);p.yz=mat2(cx,-sx,sx,cx)*p.yz;
+if(ty<1.5){float tz=.42;p.xy=mat2(cos(tz),-sin(tz),sin(tz),cos(tz))*p.xy;}
+p.xy+=O;float camZ=7.6-Z*2.6;float w=camZ-p.z;vec2 s=p.xy*1.9/w;s.x/=asp;
+gl_Position=vec4(s,0.,1.);gl_PointSize=max(1.,sz*px/w);
+vA=al*(1.-smoothstep(6.,12.,w)*.65);vC=c;vT=ty;}`;
+const FS=`precision mediump float;uniform float uL;varying float vA,vC,vT;
+void main(){vec3 gold=vec3(.88,.64,.23),cr=vec3(1.,.94,.82);float a=vA;vec3 col;
+if(uL>.5){col=mix(gold,cr,vC)*.55;gl_FragColor=vec4(col*a,a)*.8;return;}
+float d=length(gl_PointCoord-.5);float g=smoothstep(.5,0.,d);g=g*g*1.05;
+col=vT>1.5?cr*.85:mix(gold,cr,.15+vC*.85)*(1.+vC*1.2);
+gl_FragColor=vec4(col*g*a,g*a);}`;
+const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return gl.getShaderParameter(o,gl.COMPILE_STATUS)?o:null};
+const v=sh(gl.VERTEX_SHADER,VS),f=sh(gl.FRAGMENT_SHADER,FS);if(!v||!f)return;
+const pr=gl.createProgram();gl.attachShader(pr,v);gl.attachShader(pr,f);gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))return;gl.useProgram(pr);
+/* geometry: [helix points][rungs][ambient][ecg] */
+const D=[],N=170,rnd=Math.random;let nH=0,nR=0,nA=0,nE=0;
+for(let i=0;i<N;i++){const y=-4.3+8.6*i/(N-1);for(let s=0;s<2;s++){D.push(y,s*Math.PI,(i%5==0?15:8),1, 0,0,0,0)}}nH=N*2;
+for(let i=2;i<N;i+=5){const y=-4.3+8.6*i/(N-1);D.push(y,0,1,1,0,0,0,0,y,Math.PI,1,1,0,0,0,0)}nR=Math.ceil((N-2)/5)*2;
+const K=matchMedia('(max-width:900px)').matches?110:200;for(let i=0;i<K;i++){D.push(-4+8*rnd(),0,3+rnd()*7,2, -6+12*rnd(),-4+6*rnd(),.1+rnd()*.28,rnd()*6.28)}nA=K;
+const E=240;for(let i=0;i<E;i++){D.push(0,0,1,3, -2+11*i/(E-1),0,0,0)}nE=E;
+const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(D),gl.STATIC_DRAW);
+const la=gl.getAttribLocation(pr,'a'),lb=gl.getAttribLocation(pr,'b');gl.enableVertexAttribArray(la);gl.vertexAttribPointer(la,4,gl.FLOAT,false,32,0);gl.enableVertexAttribArray(lb);gl.vertexAttribPointer(lb,4,gl.FLOAT,false,32,16);
+const U=n=>gl.getUniformLocation(pr,n),u={T:U('T'),Z:U('Z'),P:U('P'),asp:U('asp'),px:U('px'),D:U('D'),M:U('M'),O:U('O'),L:U('uL')};
+gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);gl.clearColor(0,0,0,0);
+hero.insertBefore(cv,hero.firstChild);
+let mx=0,my=0,run=false,t0=performance.now(),last=0,n=0,acc=0,dead=false,vis=true;
+const g=k=>parseFloat(hero.style.getPropertyValue(k))||0;
+const size=()=>{const dpr=Math.min(devicePixelRatio||1,1.75),w=Math.round(hero.clientWidth*dpr),h=Math.round(hero.clientHeight*dpr);if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h)}return dpr};
+const frame=now=>{if(!run||dead)return;requestAnimationFrame(frame);const dt=now-last;last=now;
+if(dt<250){acc+=dt;n++;if(n==50){if(acc/n>40&&!window.H5_TEST){dead=true;cv.classList.remove('on');return}acc=0;n=0}}
+const dpr=size(),t=(now-t0)/1000,desk=innerWidth>900;mx+=(g('--px')-mx)*.05;my+=(g('--py')-my)*.05;
+gl.clear(gl.COLOR_BUFFER_BIT);
+gl.uniform1f(u.T,t);gl.uniform1f(u.Z,g('--hp'));gl.uniform1f(u.P,((t%6)/6)*10-5);gl.uniform1f(u.asp,cv.width/cv.height);gl.uniform1f(u.px,(desk?20:9)*dpr);gl.uniform1f(u.D,desk?1:0);gl.uniform2f(u.M,mx,my);gl.uniform2f(u.O,desk?cv.width/cv.height*1.75:0,desk?.1:.62);
+gl.uniform1f(u.L,0);gl.drawArrays(gl.POINTS,0,nH);
+gl.uniform1f(u.L,1);gl.drawArrays(gl.LINES,nH,nR);
+gl.uniform1f(u.L,0);gl.drawArrays(gl.POINTS,nH+nR,nA);
+gl.uniform1f(u.L,1);gl.drawArrays(gl.LINE_STRIP,nH+nR+nA,nE);
+if(!cv.classList.contains('on'))cv.classList.add('on')};
+const go=()=>{const want=vis&&!document.hidden;if(want&&!run&&!dead){run=true;last=performance.now();requestAnimationFrame(frame)}else if(!want)run=false};
+new IntersectionObserver(es=>{vis=es[0].isIntersecting;go()},{threshold:.02}).observe(hero);document.addEventListener('visibilitychange',go);go();
 })();
 </script>
 </body></html>
