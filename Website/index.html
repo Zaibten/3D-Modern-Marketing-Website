@@ -1489,22 +1489,24 @@ const SVC=[
 ['Medical Content Creation by Qualified Doctors','',[],I0[10],{h:'Medical Content Creation by Qualified Doctors',sub:'Patient education written and reviewed by licensed doctors for accuracy and trust.',pts:EX0[10][1]}],
 ['Digital Education and Course Development','',[],ICE,{h:'From Expert to Educator: Building a Doctor’s Digital Education Business',sub:'',pts:[['Personal branding','Build the doctor’s authority and online presence.'],['Course development','Turn their knowledge into structured courses.'],['Curriculum planning','Develop modules, lessons and learning outcomes.'],['Scriptwriting','Write engaging educational scripts.'],['Production','Film and record professional lessons.'],['Editing','Edit lessons, reels and promotional videos.'],['Marketing','Build anticipation and launch campaigns.'],['Sales funnel','Create a journey from followers to paying students.'],['Course management','Help package, promote and sell recorded courses.']],box:{t:'A. Recorded online courses',d:'Pre-recorded courses divided into modules. Students learn at their own pace. Example: a complete beginner-to-advanced professional training course.'}}]
 ];
+/* order: AI Automation, Social Media, SEO, then the rest */
+const ORD=[7,0,2,1,3,4,5,6,8,9];{const t=ORD.map(o=>SVC[o]);SVC.splice(0,SVC.length,...t);SVC.forEach(x=>{if(x[4].link)x[4].link.to=SVC.findIndex(y=>y[0]==='AI Automation')});const v={};ORD.forEach((o,n)=>{if(VID[o])v[n]=VID[o]});Object.keys(VID).forEach(k=>delete VID[k]);Object.assign(VID,v)}
 
 let sa=0;const SEL=new Set();
 const liH=(s,i)=>`<li data-i="${i}"><i>${String(i+1).padStart(2,'0')}</i><span>${s[0]}</span>${s[4].nocart?'':`<button class="chk" type="button" aria-label="Select ${s[0]}"></button>`}</li>`;
 svl.innerHTML=sfl.innerHTML=SVC.map(liH).join('');
-function pfHTML(){return `<div class="pfw"><div class="pft" role="tablist"><button type="button" class="on" data-pf="a">All work</button>${PF_CATS.map((n,c)=>`<button type="button" data-pf="${c}">${n}</button>`).join('')}</div><div class="pfg">${PF.map(it=>`<div class="pfi" data-c="${it.c}">${it.video?`<video src="${it.video}"${it.poster?` poster="${it.poster}"`:''} preload="metadata" muted loop autoplay playsinline data-pa></video>`:it.src?`<img src="${it.src}" alt="${it.t}" loading="lazy">`:'<u></u>'}<span>${it.t}</span></div>`).join('')}</div></div>`}
+function pfHTML(){return `<div class="pfw"><div class="pfk">Our work</div><div class="pft" role="tablist"><button type="button" class="on" data-pf="a">All work</button>${PF_CATS.map((n,c)=>`<button type="button" data-pf="${c}">${n}</button>`).join('')}</div><div class="pfg">${PF.map(it=>`<div class="pfi" data-c="${it.c}"><div class="pfm">${it.video?`<video src="${it.video}"${it.poster?` poster="${it.poster}"`:''} preload="metadata" muted loop autoplay playsinline data-pa></video>`:it.src?`<img src="${it.src}" alt="${it.t}" loading="lazy">`:'<u></u>'}</div><span>${it.t}</span></div>`).join('')}</div></div>`}
 function svBody(i,full){const s=SVC[i],D=s[4],W=full?(LOW?640:1120):(LOW?480:800),Hh=W*9/16;
  const q=t=>link(WA,'Hi Medagency, I’d like to book a discovery call about '+s[0]+(t?' ('+t+')':'')+'.');
  const bk=t=>`<a class="btn" target="_blank" rel="noopener" href="${q(t)}">Book a Discovery Call</a>`;
  const tierH=t=>`<div class="pkc${t.best?' best':''}${t.size?' '+t.size:''}">${t.best?`<em class="bst">${t.best}</em>`:''}<h4>${t.n}</h4>${t.price?`<div class="pr2"><b>${t.price}</b>${t.per?` <span>${t.per}</span>`:''}</div>`:''}${t.items?`<ul>${t.items.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}${t.cta!==false?bk(t.n):''}</div>`;
  const li=x=>Array.isArray(x)?`<li><b>${x[0]}.</b> ${x[1]}</li>`:`<li>${x}</li>`;
  const media=VID[i]?`<video class="vc" src="${VID[i]}" poster="${VID[i].replace('.mp4','.jpg')}" muted loop autoplay playsinline preload="auto"></video>`:`<canvas class="vc" width="${W}" height="${Hh}"></canvas>`;
- const RV={0:[3,'Real reel'],1:[2,'Brand style'],3:[4,'Real ad'],8:[1,'Doctor-led'],9:[5,'Real lesson']},rv=RV[i]?`<button type="button" class="rvp" aria-label="Real sample video, tap for sound"><video src="media/anmol-${RV[i][0]}.mp4" poster="media/anmol-${RV[i][0]}.jpg" muted loop autoplay playsinline preload="metadata"></video><b>${RV[i][1]}</b></button>`:'';
+ const RV={0:[3,'Real reel'],1:[2,'Brand style'],3:[4,'Real ad'],8:[1,'Doctor-led'],9:[5,'Real lesson']},rv=RV[ORD[i]]?`<button type="button" class="rvp" aria-label="Real sample video, tap for sound"><video src="media/anmol-${RV[ORD[i]][0]}.mp4" poster="media/anmol-${RV[ORD[i]][0]}.jpg" muted loop autoplay playsinline preload="metadata"></video><b>${RV[ORD[i]][1]}</b></button>`:'';
  const vid=D.pf?pfHTML():`<div class="vid">${media}${rv}<span class="ai">AI preview</span>${VID[i]?'':'<span class="vt">00:00 / 00:09</span><button class="pp" type="button" aria-label="Pause or play">❚❚</button><div class="cap"></div><div class="vp"><i></i></div>'}${full?'':'<button class="fv" type="button" data-full>Full view</button>'}</div>`;
- return (D.msg?`<div class="sv-msg">${D.msg}</div>`:'')+vid
+ return (D.msg?`<div class="sv-msg">${D.msg}</div>`:'')+(D.pf?'':vid)
  +`<div class="hd"><svg class="ic" viewBox="0 0 120 120">${s[3]}</svg><h3>${D.h}</h3></div>`
- +(D.sub?`<p class="sub">${D.sub}</p>`:'')+(D.inc?`<p class="inc">${D.inc}</p>`:'')
+ +(D.sub?`<p class="sub">${D.sub}</p>`:'')+(D.pf?vid:'')+(D.inc?`<p class="inc">${D.inc}</p>`:'')
  +(D.pts?`${D.ptsT?`<div class="ptt">${D.ptsT}</div>`:''}<ul class="dl one">${D.pts.map(li).join('')}</ul>`:'')
  +(D.link?`<p class="lk">${D.link.t} <a class="lnk" role="button" tabindex="0" data-goto="${D.link.to}">See AI Automation</a></p>`:'')
  +(D.box?`<div class="bx"><b>${D.box.t}</b><p>${D.box.d}</p></div>`:'')
@@ -1572,6 +1574,7 @@ const SH=[
 [['comment','A comment gets an instant AI reply'],['wa','A patient chats on WhatsApp and books'],['confirm','Confirmation and follow-up sent']],
 [['doc','Doctor writing the patient guide'],['doc','Reviewing every medical claim'],['phone','Publishing trusted content']],
 [['course','Turning expertise into structured modules'],['cam','Filming professional lessons'],['road','Planning the course launch']]];
+{const t=ORD.map(o=>SH[o]);SH.splice(0,SH.length,...t)}
 const VBG=[['#1d140d','#4a3524'],['#2b1d13','#6B4E37'],['#1d140d','#443124']];
 const ptr=(x,X,Y,c)=>{if(c>=0){x.strokeStyle=`rgba(255,255,255,${1-c})`;x.lineWidth=2;x.beginPath();x.arc(X,Y,6+c*22,0,7);x.stroke()}x.fillStyle=kD;x.strokeStyle=kW;x.lineWidth=1.5;x.beginPath();x.moveTo(X,Y);x.lineTo(X+11,Y+6);x.lineTo(X+5,Y+8);x.lineTo(X+2,Y+15);x.closePath();x.fill();x.stroke()};
 function vframe(x,k,t,W,H){const S=W/480,w=480,h=270,N=SH[k].length,tt=t%(N*3),s=Math.floor(tt/3),p=(tt%3)/3,b=VBG[(k+s)%3],ty=SH[k][s][0];x.setTransform(S,0,0,S,0,0);
@@ -1904,7 +1907,7 @@ function build(){
 /* split each service into screen-sized pages; scrolling swaps the page (old content hides, next appears) */
 function paginate(){
  const probe=document.createElement('div');probe.style.cssText='position:absolute;visibility:hidden;height:100svh;width:1px';document.body.appendChild(probe);PVH=probe.offsetHeight||innerHeight;probe.remove();
- const A=PVH-80-32-54-14;
+ const A=PVH-80-32-54-14-44;
  const mh=el=>{const c=getComputedStyle(el);return el.offsetHeight+(parseFloat(c.marginTop)||0)+(parseFloat(c.marginBottom)||0)};
  feed.querySelectorAll('.svm-i').forEach((art,idx)=>{
   const svp=art.querySelector('.svp'),pc=art.querySelector('.pc');if(!svp||!pc)return;
@@ -1914,11 +1917,13 @@ function paginate(){
    else if(b.matches('.pkg')){[...b.children].forEach(c=>U.push({el:c,h:mh(c)+16,wrap:b}))}
    else U.push({el:b,h:mh(b),ptt:b.matches('.ptt'),pfw:b.matches('.pfw')||!!b.querySelector('.pfw')});
   });
-  const pages=[];let cur=[],ch=0;
-  for(let k=0;k<U.length;k++){const u=U[k];let need=u.h;if(u.ptt&&U[k+1])need+=U[k+1].h;
-   if(cur.length&&ch+need>A){pages.push(cur);cur=[];ch=0}
-   cur.push(u);ch+=u.h}
-  if(cur.length)pages.push(cur);
+  const pack=cap=>{const pg=[];let cur=[],ch=0;
+   for(let k=0;k<U.length;k++){const u=U[k];let need=u.h;if(u.ptt&&U[k+1])need+=U[k+1].h;
+    if(cur.length&&ch+need>cap){pg.push(cur);cur=[];ch=0}
+    cur.push(u);ch+=u.h}
+   if(cur.length)pg.push(cur);return pg};
+  let pages=pack(A);
+  if(pages.length>1){const tot=U.reduce((a,u)=>a+u.h,0),mx=Math.max(...U.map(u=>u.h)),cap2=Math.min(A,Math.max(Math.ceil(tot/pages.length)+24,mx));const p2=pack(cap2);if(p2.length===pages.length)pages=p2}
   const N=pages.length,frag=document.createDocumentFragment();
   pages.forEach((pg,pi)=>{const d=document.createElement('div');d.className='svm-pg'+(pi?'':' act');d.dataset.p=pi;let lw=null,w=null;
    pg.forEach(u=>{if(u.wrap){if(u.wrap!==lw){w=u.wrap.cloneNode(false);d.appendChild(w);lw=u.wrap}w.appendChild(u.el)}else{d.appendChild(u.el);lw=null;w=null}});
@@ -1954,7 +1959,7 @@ function upd(){raf=0;if(!feed)return;
   if(r.bottom>0&&r.top<vh)el.style.setProperty('--py',cl((r.top+r.height/2-vh/2)/vh,-1,1).toFixed(3));
   const np=+el.dataset.np;if(np>1){const pi=cl(Math.round((70-r.top)/(PVH*.85)),0,np-1);if(el._pi!==pi){el._pi=pi;el.querySelectorAll('.svm-pg').forEach(g=>g.classList.toggle('act',+g.dataset.p===pi));el.querySelectorAll('.svm-mh em i').forEach((d,k)=>d.classList.toggle('on',k===pi));el.querySelector('.svp').classList.toggle('end',pi===np-1)}}
  });
- feed.querySelectorAll('.svm-i').forEach((el,i)=>el.classList.toggle('past',i<cur));
+ feed.querySelectorAll('.svm-i').forEach((el,i)=>{el.classList.toggle('past',i<cur);const q=el.getBoundingClientRect();el.classList.toggle('cur',q.top<=vh*.5&&q.bottom>vh*.5)});
  if(h2){const hr=h2.getBoundingClientRect();if(RMo||hr.top<vh*.9)h2.classList.add('in');else if(hr.top>vh*1.1)h2.classList.remove('in')}
  const N=SVC.length,nEl=document.getElementById('svmN'),tEl=document.getElementById('svmT'),pEl=document.getElementById('svmP');
  if(nEl){nEl.innerHTML=pad(cur)+'<small>/ '+N+'</small>';tEl.textContent=SVC[cur][0];pEl.style.setProperty('--p',((cur+1)/N*100)+'%')}
@@ -2274,6 +2279,35 @@ setInterval(()=>{if(!vis||document.hidden||Date.now()<hold||!matchMedia('(min-wi
  .svm-i .vid video,.svm-i .vid canvas{transform:none!important}
  .svm-sm{display:none!important}
 }
+</style>
+<style id="svm-r6">
+/* r6: one service at a time, fading in/out; Photography layout */
+.pfk{font:600 .72rem Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold,#CE9C38);margin:.2rem 0 .7rem}
+.pfw{margin:1.2rem 0 1rem}
+.pft{margin-bottom:.9rem}.pft button{white-space:nowrap}
+.pfg{gap:1.1rem .8rem;max-height:520px;overflow-y:auto;padding:.1rem .3rem .4rem 0;scrollbar-width:thin;scrollbar-color:rgba(206,156,56,.5) transparent}
+.pfi{aspect-ratio:auto!important;background:none!important;border:0!important;overflow:visible!important;display:flex!important;flex-direction:column;align-items:stretch!important;gap:.5rem;padding:0!important;place-items:initial}
+.pfi.h{display:none!important}
+.pfm{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:linear-gradient(160deg,#6B4E37,#2b1d13);border:1px solid rgba(206,156,56,.4);display:grid;place-items:center}
+.pfm img,.pfm video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pfi span{position:static!important;background:none!important;padding:0 .15rem!important;font:500 .74rem/1.3 Montserrat,sans-serif!important;color:#e9dcc6;width:auto!important;max-width:none!important;border-radius:0!important}
+.sv .hd,.svp .hd{margin-top:.2rem}
+.svp .ptt{margin-top:1.4rem;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.14)}
+@media(max-width:900px){
+ .svm-i{margin-bottom:12svh!important}
+ .svm-i:last-child{margin-bottom:0!important}
+ .svm-i .svp{opacity:0;transform:translateY(30px) scale(.97);transition:opacity .6s ease,transform .8s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+ .svm-i.cur .svp{opacity:1;transform:none;pointer-events:auto}
+ .svm-i .pc{display:flex;flex-direction:column}
+ .svm-i .pft{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.svm-i .pft::-webkit-scrollbar{display:none}.svm-i .pft button{flex:none}
+ .svm-i .svm-pg.act{margin:auto 0;width:100%}
+ .svm-i .svm-pg[data-p="0"].act{margin:0}
+ .svm-i .pfg{grid-template-columns:repeat(2,1fr)!important;gap:.9rem .7rem}
+ .svm-i .pfw{margin:.7rem 0}
+ .svm-i .pfi span{font-size:.7rem!important}
+ .svm-i .pfm{aspect-ratio:1/1;border-radius:12px}
+}
+@media(prefers-reduced-motion:reduce){.svm-i .svp{transition:none}}
 </style>
 <style id="navfix">
 /* the nav gets class "sc" on scroll, which collided with the app-slide ".sc" rule (full-height, invisible, blocking every tap). */
