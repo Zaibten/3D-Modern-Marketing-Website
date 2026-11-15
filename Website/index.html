@@ -1325,7 +1325,7 @@ const vs=i=>secs[i].classList.contains('vis');
 const SC=[{bg:'#2b1d13',t:'dark'},{bg:'#FFFFFF',t:'light'},{bg:'#1d140d',t:'dark'},{bg:'#FBF7F0',t:'light'},{bg:'#F4EBDD',t:'light'},{bg:'#1d140d',t:'dark'},{bg:'#FFFFFF',t:'light'},{bg:'#FBF7F0',t:'light'},{bg:'#F4EBDD',t:'light'},{bg:'#FFFFFF',t:'light'},{bg:'#FBF7F0',t:'light'},{bg:'#2b1d13',t:'dark'}];
 let cur=0,ready=0,pend=0;
 function go(i){if(!ready){pend=i;return}if(i===cur&&document.body.dataset.i)return;cur=i;document.body.dataset.i=1;const s=SC[i];document.body.className=s.t;document.body.style.background=s.bg;secs.forEach((e,k)=>{if(k===i)e.classList.add('on');else if(!e.classList.contains('vis'))e.classList.remove('on')});if(secs[i].id==='work')count();[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i))}
-secs.forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(ready)s.classList.add('on');if(e.intersectionRect.height>=Math.min(e.boundingClientRect.height*.5,innerHeight*.4))go(secs.indexOf(s))}}),{threshold:[.01,.02,.03,.04,.05,.2,.35,.5,.65]}).observe(s));
+secs.forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(ready)s.classList.add('on');if(e.intersectionRect.height>=Math.min(e.boundingClientRect.height*.5,innerHeight*.4))go(secs.indexOf(s))}}),{threshold:[.05,.2,.35,.5,.65]}).observe(s));
 let hq=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;if(!hq&&!isLite){hq=1;requestAnimationFrame(()=>{hq=0;hv.style.setProperty('--mx',mx);hv.style.setProperty('--my',my)})}},{passive:true});
 const vio=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('vis',e.isIntersecting)),{rootMargin:'30% 0px'});secs.forEach(s=>vio.observe(s));
 const mDH=()=>DH=document.documentElement.scrollHeight;addEventListener('resize',mDH);addEventListener('load',mDH);setInterval(mDH,2500);
@@ -1858,7 +1858,7 @@ document.querySelectorAll('.h4-t b').forEach(b=>{const m=b.textContent.match(/^(
 const host=document.getElementById('svw');if(!host||typeof SVC==='undefined'||typeof svBody!=='function')return;
 const mq=matchMedia('(max-width:900px)'),RMo=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const intro=document.querySelector('#services .w>p'),introOrig=intro?intro.textContent:'',h2=document.querySelector('#services .w>h2'),h2Orig=h2?h2.innerHTML:'';
-let PVH=innerHeight,lastW=innerWidth,feed=null,io=null,vio=null,raf=0,loopId=0,last=0;const T={};
+let feed=null,io=null,vio=null,raf=0,loopId=0,last=0;const T={};
 const words=el=>{if(!el)return;const t=el.textContent.trim().split(/\s+/);el.innerHTML=t.map((w,j)=>'<span class="w1"><span style="--j:'+j+'">'+w.replace(/&/g,'&amp;')+'</span></span>').join(' ')};
 function count(card){if(RMo)return;card.querySelectorAll('.pr2 b').forEach(b=>{const o=b.dataset.o||(b.dataset.o=b.textContent),m=o.match(/\d[\d,]*/);if(!m)return;const to=+m[0].replace(/,/g,''),t0=performance.now()+700,d=1200;const f=n=>{const k=Math.min(1,Math.max(0,(n-t0)/d)),e=1-Math.pow(1-k,3);b.textContent=o.replace(m[0],Math.round(to*e).toLocaleString('en-US'));if(k<1)requestAnimationFrame(f)};b.textContent=o.replace(m[0],'0');requestAnimationFrame(f)})}
 const pad=n=>String(n+1).padStart(2,'0'),cl=(v,a,b)=>Math.min(b,Math.max(a,v));
@@ -1874,7 +1874,6 @@ function build(){
  /* mobile: full service content is always shown, no See more */
  feed.querySelectorAll('.svm-i').forEach(a=>{words(a.querySelector('.hd h3'));a.querySelectorAll('.dl li,.pkg .pkc').forEach((c,q)=>c.style.setProperty('--q',Math.min(q,7)))});
  feed.querySelectorAll('.svm-i').forEach(a=>{[...a.querySelector('.pc').children].forEach((c,k)=>c.style.setProperty('--k',Math.min(k+1,8)))});
- paginate();
  // the hidden desktop preview should not keep playing video on phones
  if(typeof svp!=='undefined')svp.querySelectorAll('video').forEach(v=>{v.removeAttribute('autoplay');v.pause()});
  // videos: autoplay (muted + inline) whenever they are on screen, pause when off screen to save battery
@@ -1900,40 +1899,6 @@ function build(){
  loopId=requestAnimationFrame(loop);
  upd();
 }
-
-/* split each service into screen-sized pages; scrolling swaps the page (old content hides, next appears) */
-function paginate(){
- const probe=document.createElement('div');probe.style.cssText='position:absolute;visibility:hidden;height:100svh;width:1px';document.body.appendChild(probe);PVH=probe.offsetHeight||innerHeight;probe.remove();
- const A=PVH-80-32-54-14;
- const mh=el=>{const c=getComputedStyle(el);return el.offsetHeight+(parseFloat(c.marginTop)||0)+(parseFloat(c.marginBottom)||0)};
- feed.querySelectorAll('.svm-i').forEach((art,idx)=>{
-  const svp=art.querySelector('.svp'),pc=art.querySelector('.pc');if(!svp||!pc)return;
-  const U=[];
-  [...pc.children].forEach(b=>{
-   if(b.matches('.dl')){[...b.children].forEach((li,k)=>U.push({el:li,h:mh(li)+8+(k?0:10),wrap:b}))}
-   else if(b.matches('.pkg')){[...b.children].forEach(c=>U.push({el:c,h:mh(c)+16,wrap:b}))}
-   else U.push({el:b,h:mh(b),ptt:b.matches('.ptt'),pfw:b.matches('.pfw')||!!b.querySelector('.pfw')});
-  });
-  const pages=[];let cur=[],ch=0;
-  for(let k=0;k<U.length;k++){const u=U[k];let need=u.h;if(u.ptt&&U[k+1])need+=U[k+1].h;
-   if(cur.length&&ch+need>A){pages.push(cur);cur=[];ch=0}
-   cur.push(u);ch+=u.h}
-  if(cur.length)pages.push(cur);
-  const N=pages.length,frag=document.createDocumentFragment();
-  pages.forEach((pg,pi)=>{const d=document.createElement('div');d.className='svm-pg'+(pi?'':' act');d.dataset.p=pi;let lw=null,w=null;
-   pg.forEach(u=>{if(u.wrap){if(u.wrap!==lw){w=u.wrap.cloneNode(false);d.appendChild(w);lw=u.wrap}w.appendChild(u.el)}else{d.appendChild(u.el);lw=null;w=null}});
-   frag.appendChild(d)});
-  pc.innerHTML='';pc.appendChild(frag);
-  const mhd=document.createElement('div');mhd.className='svm-mh';
-  mhd.innerHTML='<b>'+pad(idx)+' / '+SVC.length+'</b><span>'+SVC[idx][0]+'</span>'+(N>1?'<em>'+pages.map((_,k)=>'<i'+(k?'':' class="on"')+'></i>').join('')+'</em><small>Scroll ↓</small>':'');
-  svp.insertBefore(mhd,pc);
-  svp.classList.toggle('end',N===1);
-  art.dataset.np=N;art._pi=0;
-  art.style.height=N>1?'calc('+(100+(N-1)*85+25)+'svh)':'100svh';
-  // a block taller than a screen (portfolio grid) scrolls inside its page
-  pc.querySelectorAll('.pfg').forEach(g=>{g.style.maxHeight=Math.max(160,A-120)+'px';g.style.overflowY='auto'});
- });
-}
 function destroy(){
  if(!feed)return;
  removeEventListener('scroll',req);removeEventListener('resize',req);
@@ -1952,7 +1917,6 @@ function upd(){raf=0;if(!feed)return;
   if(r.top<vh*.5)cur=i;
   if(RMo||r.top<vh*.85){if(!el.classList.contains('in')){el.classList.add('in');count(el)}}else if(r.top>vh)el.classList.remove('in');
   if(r.bottom>0&&r.top<vh)el.style.setProperty('--py',cl((r.top+r.height/2-vh/2)/vh,-1,1).toFixed(3));
-  const np=+el.dataset.np;if(np>1){const pi=cl(Math.round((70-r.top)/(PVH*.85)),0,np-1);if(el._pi!==pi){el._pi=pi;el.querySelectorAll('.svm-pg').forEach(g=>g.classList.toggle('act',+g.dataset.p===pi));el.querySelectorAll('.svm-mh em i').forEach((d,k)=>d.classList.toggle('on',k===pi));el.querySelector('.svp').classList.toggle('end',pi===np-1)}}
  });
  feed.querySelectorAll('.svm-i').forEach((el,i)=>el.classList.toggle('past',i<cur));
  if(h2){const hr=h2.getBoundingClientRect();if(RMo||hr.top<vh*.9)h2.classList.add('in');else if(hr.top>vh*1.1)h2.classList.remove('in')}
@@ -1966,7 +1930,7 @@ function loop(now){loopId=requestAnimationFrame(loop);
  if(!feed||document.hidden||now-last<(typeof isLite!=='undefined'&&isLite?66:33))return;
  const dt=Math.min((now-last)/1000,.1);last=now;
  feed.querySelectorAll('.svm-i[data-vis="1"]').forEach(a=>{
-  const c=a.querySelector('canvas.vc');if(!c||!c.offsetParent)return;const i=+a.dataset.i;
+  const c=a.querySelector('canvas.vc');if(!c)return;const i=+a.dataset.i;
   T[i]=(T[i]||0)+((typeof vpz!=='undefined'&&vpz)?0:dt);
   const [tt,L,p,N]=vframe(c.getContext('2d'),i,T[i],c.width,c.height);
   const cap=a.querySelector('.cap'),vp=a.querySelector('.vp i'),vt=a.querySelector('.vt');
@@ -1977,9 +1941,6 @@ function loop(now){loopId=requestAnimationFrame(loop);
 }
 
 const sync=()=>mq.matches?build():destroy();
-const repag=()=>{if(!feed)return;const y=scrollY;destroy();build();scrollTo({top:y,behavior:'instant'})};
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>setTimeout(repag,150));
-let rt=0;addEventListener('resize',()=>{if(innerWidth===lastW)return;lastW=innerWidth;clearTimeout(rt);rt=setTimeout(repag,300)});
 mq.addEventListener?mq.addEventListener('change',sync):mq.addListener(sync);
 sync();
 }catch(err){console.warn('mobile services feed',err)}})();
@@ -2241,34 +2202,19 @@ sec.addEventListener('pointerdown',()=>{hold=Date.now()+20000});sec.addEventList
 setInterval(()=>{if(!vis||document.hidden||Date.now()<hold||!matchMedia('(min-width:901px)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;svShow((sa+1)%SVC.length,1)},5500)}catch(e){}})();
 </script>
 <style id="svm-full">
-/* Mobile services: each service is a full-screen card split into pages. Scrolling swaps the page:
-   the finished content disappears, the rest appears; then the next service follows. */
+/* Mobile services: every service shows its full desktop content (no See more). Each service starts on a fresh screen;
+   if it is taller than the screen, it simply scrolls away to reveal the rest, then the next service follows. */
 @media(max-width:900px){
- .svm-i{display:block!important;min-height:0!important;margin:0!important;padding:0!important;opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
- .svm-i .svp{position:sticky;top:70px;height:calc(100svh - 80px);min-height:0!important;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;padding:1rem!important}
- .svm-i .pc{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
- .svm-i .pc::-webkit-scrollbar{display:none}
- .svm-pg{display:none}
- .svm-pg.act{display:block;animation:svmpg .55s cubic-bezier(.2,.8,.2,1) both}
- @keyframes svmpg{from{opacity:0;transform:translateY(30px)}}
- .svm-i .pc>*{opacity:1!important;transform:none!important}
- .svm-mh{display:flex;align-items:center;gap:.6rem;height:34px;flex:none;margin:0 0 .6rem;padding-bottom:.4rem;border-bottom:1px solid rgba(255,255,255,.14);position:relative;z-index:4}
- .svm-mh b{font:600 .72rem Montserrat,sans-serif;color:#CE9C38}
- .svm-mh span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:500 .88rem Jost,sans-serif;color:#fff}
- .svm-mh em{display:flex;gap:5px;align-items:center}
- .svm-mh em i{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.3);transition:width .3s,background .3s}
- .svm-mh em i.on{width:18px;background:#CE9C38}
- .svm-mh small{font:600 .62rem Montserrat,sans-serif;color:#d9c3a0;white-space:nowrap}
- .svp.end .svm-mh small{visibility:hidden}
+ .svm-i{display:block!important;min-height:100svh;margin-bottom:0;padding:.4rem 0 1.4rem;scroll-margin-top:0}
+ .svm-i .svp{display:block;min-height:calc(100svh - 90px);padding:1.1rem!important}
  .svm-i .sv-msg,.svm-i .inc,.svm-i .ptt,.svm-i .lk,.svm-i .bx{display:block!important}
  .svm-i .pkg{display:grid!important;grid-template-columns:1fr!important}
  .svm-i .dl li,.svm-i .dl li:nth-child(n+4){display:block!important}
  .svm-i .hd h3{font-size:1.45rem}
  .svm-i .sub{font-size:.95rem;margin:.5rem 0}
  .svm-i .row{margin-top:1rem;flex-wrap:wrap}
- .svm-i .vid{width:100%}
- .svm-i .vid video,.svm-i .vid canvas{transform:none!important}
  .svm-sm{display:none!important}
+ .svm-i .vid{width:100%}
 }
 </style>
 </body></html>
