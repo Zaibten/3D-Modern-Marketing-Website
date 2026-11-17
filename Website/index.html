@@ -1952,7 +1952,7 @@ const mq=matchMedia('(max-width:900px)'),RMo=matchMedia('(prefers-reduced-motion
 const intro=document.querySelector('#services .w>p'),introOrig=intro?intro.textContent:'',h2=document.querySelector('#services .w>h2'),h2Orig=h2?h2.innerHTML:'';
 let PVH=innerHeight,lastW=innerWidth,feed=null,io=null,vio=null,raf=0,loopId=0,last=0;const T={};
 const words=el=>{if(!el)return;const t=el.textContent.trim().split(/\s+/);el.innerHTML=t.map((w,j)=>'<span class="w1"><span style="--j:'+j+'">'+w.replace(/&/g,'&amp;')+'</span></span>').join(' ')};
-function count(card){if(RMo)return;card.querySelectorAll('.pr2 b').forEach(b=>{const o=b.dataset.o||(b.dataset.o=b.textContent),m=o.match(/\d[\d,]*/);if(!m)return;const to=+m[0].replace(/,/g,''),t0=performance.now()+700,d=1200;const f=n=>{const k=Math.min(1,Math.max(0,(n-t0)/d)),e=1-Math.pow(1-k,3);b.textContent=o.replace(m[0],Math.round(to*e).toLocaleString('en-US'));if(k<1)requestAnimationFrame(f)};b.textContent=o.replace(m[0],'0');requestAnimationFrame(f)})}
+function count(card){if(RMo)return;card.querySelectorAll('.pr2 b').forEach(b=>{const o=b.dataset.o||(b.dataset.o=b.textContent),m=o.match(/\d[\d,]*/);if(!m)return;const id=b._c=(b._c||0)+1,to=+m[0].replace(/,/g,''),t0=performance.now()+500,d=1100;const f=n=>{if(b._c!==id)return;const k=Math.min(1,Math.max(0,(n-t0)/d)),e=1-Math.pow(1-k,3);b.textContent=o.replace(m[0],Math.round(to*e).toLocaleString('en-US'));if(k<1)requestAnimationFrame(f)};b.textContent=o.replace(m[0],'0');requestAnimationFrame(f)})}
 const pad=n=>String(n+1).padStart(2,'0'),cl=(v,a,b)=>Math.min(b,Math.max(a,v));
 
 function build(){
@@ -1996,36 +1996,47 @@ function build(){
 /* split each service into screen-sized pages; scrolling swaps the page (old content hides, next appears) */
 function paginate(){
  const probe=document.createElement('div');probe.style.cssText='position:absolute;visibility:hidden;height:100svh;width:1px';document.body.appendChild(probe);PVH=probe.offsetHeight||innerHeight;probe.remove();
- const A=PVH-80-32-54-14-44;
- const mh=el=>{const c=getComputedStyle(el);return el.offsetHeight+(parseFloat(c.marginTop)||0)+(parseFloat(c.marginBottom)||0)};
  feed.querySelectorAll('.svm-i').forEach((art,idx)=>{
   const svp=art.querySelector('.svp'),pc=art.querySelector('.pc');if(!svp||!pc)return;
+  /* the mobile card never shows these desktop-only controls */
+  pc.querySelectorAll('[data-full],.fv,.pp').forEach(e=>e.remove());
+  pc.querySelectorAll('.row').forEach(r=>{if(!r.querySelector('.btn'))r.remove()});
   const U=[];
   [...pc.children].forEach(b=>{
-   if(b.matches('.dl')){[...b.children].forEach((li,k)=>U.push({el:li,h:mh(li)+8+(k?0:10),wrap:b}))}
-   else if(b.matches('.pkg')){[...b.children].forEach(c=>U.push({el:c,h:mh(c)+16,wrap:b}))}
-   else U.push({el:b,h:mh(b),ptt:b.matches('.ptt'),pfw:b.matches('.pfw')||!!b.querySelector('.pfw')});
+   if(b.matches('.dl')||b.matches('.pkg')){[...b.children].forEach(c=>U.push({el:c,wrap:b}))}
+   else U.push({el:b,ptt:b.matches('.ptt')});
   });
-  const pack=cap=>{const pg=[];let cur=[],ch=0;
-   for(let k=0;k<U.length;k++){const u=U[k];let need=u.h;if(u.ptt&&U[k+1])need+=U[k+1].h;
-    if(cur.length&&ch+need>cap){pg.push(cur);cur=[];ch=0}
-    cur.push(u);ch+=u.h}
-   if(cur.length)pg.push(cur);return pg};
-  let pages=pack(A);
-  if(pages.length>1){const tot=U.reduce((a,u)=>a+u.h,0),mx=Math.max(...U.map(u=>u.h)),cap2=Math.min(A,Math.max(Math.ceil(tot/pages.length)+24,mx));const p2=pack(cap2);if(p2.length===pages.length)pages=p2}
-  const N=pages.length,frag=document.createDocumentFragment();
-  pages.forEach((pg,pi)=>{const d=document.createElement('div');d.className='svm-pg'+(pi?'':' act');d.dataset.p=pi;let lw=null,w=null;
-   pg.forEach(u=>{if(u.wrap){if(u.wrap!==lw){w=u.wrap.cloneNode(false);d.appendChild(w);lw=u.wrap}w.appendChild(u.el)}else{d.appendChild(u.el);lw=null;w=null}});
-   frag.appendChild(d)});
-  pc.innerHTML='';pc.appendChild(frag);
-  const mhd=document.createElement('div');mhd.className='svm-mh';
-  mhd.innerHTML='<b>'+pad(idx)+' / '+SVC.length+'</b><span>'+SVC[idx][0]+'</span>'+(N>1?'<em>'+pages.map((_,k)=>'<i'+(k?'':' class="on"')+'></i>').join('')+'</em><small>Scroll ↓</small>':'');
-  svp.insertBefore(mhd,pc);
+  /* header first, so the real page height is known; its dots are filled in once the page count is known */
+  const mhd=document.createElement('div');mhd.className='svm-mh';svp.insertBefore(mhd,pc);
+  pc.innerHTML='';
+  /* exact fit: add content to a page, measure it, and start a new page only when it really overflows */
+  const fits=()=>pc.scrollHeight<=pc.clientHeight+1;
+  let pages=[],page=null,lw=null,w=null;
+  const newPage=()=>{pages.forEach(x=>x.classList.remove('act'));page=document.createElement('div');page.className='svm-pg act';pc.appendChild(page);pages.push(page);lw=null;w=null};
+  const put=u=>{if(u.wrap){if(u.wrap!==lw){w=u.wrap.cloneNode(false);page.appendChild(w);lw=u.wrap}w.appendChild(u.el)}else{page.appendChild(u.el);lw=null;w=null}page.classList.toggle('hasvid',!!page.querySelector('.vid'))};
+  const pack=tight=>{
+   art.classList.toggle('tight',tight);pc.innerHTML='';pages=[];newPage();
+   for(let k=0;k<U.length;){
+    const need=[U[k]];if(U[k].ptt&&U[k+1])need.push(U[k+1]);
+    const had=page.childNodes.length;
+    need.forEach(put);
+    if(had>0&&!fits()){
+     need.forEach(x=>x.el.remove());
+     page.querySelectorAll('.dl:empty,.pkg:empty').forEach(e=>e.remove());
+     newPage();need.forEach(put);
+    }
+    k+=need.length;
+   }
+  };
+  pack(false);
+  /* a lone price card on an otherwise empty page looks unfinished: try a slightly tighter layout so it joins the page before */
+  if(pages.length>1&&pages[pages.length-1].querySelectorAll('.pkc,.dl li,.row,.lk,.bx,.inc').length<=2){const n0=pages.length;pack(true);if(pages.length>=n0)pack(false)}
+  const N=pages.length;
+  pages.forEach((p,i)=>{p.dataset.p=i;p.classList.toggle('act',i===0);[...p.children].forEach((c,j)=>c.style.setProperty('--k2',j));p.querySelectorAll('.dl li,.pkc').forEach((c,j)=>c.style.setProperty('--q2',j))});
+  mhd.innerHTML='<b>'+pad(idx)+' / '+SVC.length+'</b><span>'+SVC[idx][0]+'</span>'+(N>1?'<em>'+pages.map((_,k)=>'<i'+(k?'':' class="on"')+'></i>').join('')+'</em><small>↓</small>':'');
   svp.classList.toggle('end',N===1);
   art.dataset.np=N;art._pi=0;
   art.style.height=N>1?'calc('+(100+(N-1)*85+25)+'svh)':'100svh';
-  // a block taller than a screen (portfolio grid) scrolls inside its page
-  pc.querySelectorAll('.pfg').forEach(g=>{g.style.maxHeight=Math.max(160,A-120)+'px';g.style.overflowY='auto'});
  });
 }
 function destroy(){
@@ -2033,7 +2044,7 @@ function destroy(){
  removeEventListener('scroll',req);removeEventListener('resize',req);
  cancelAnimationFrame(loopId);if(io)io.disconnect();io=null;if(vio)vio.disconnect();vio=null;
  const sb=document.querySelector('.svm-bar');if(sb)sb.remove();feed.remove();feed=null;
- if(intro)intro.textContent=introOrig;
+ document.body.classList.remove('svm-focus');if(intro)intro.textContent=introOrig;
  if(h2){h2.innerHTML=h2Orig;h2.classList.remove('svm-h2','in')}
 }
 function req(){if(!raf)raf=requestAnimationFrame(upd)}
@@ -2046,13 +2057,13 @@ function upd(){raf=0;if(!feed)return;
   if(r.top<vh*.5)cur=i;
   if(RMo||r.top<vh*.85){if(!el.classList.contains('in')){el.classList.add('in');count(el)}}else if(r.top>vh)el.classList.remove('in');
   if(r.bottom>0&&r.top<vh)el.style.setProperty('--py',cl((r.top+r.height/2-vh/2)/vh,-1,1).toFixed(3));
-  const np=+el.dataset.np;if(np>1){const pi=cl(Math.round((70-r.top)/(PVH*.85)),0,np-1);if(el._pi!==pi){el._pi=pi;el.querySelectorAll('.svm-pg').forEach(g=>g.classList.toggle('act',+g.dataset.p===pi));el.querySelectorAll('.svm-mh em i').forEach((d,k)=>d.classList.toggle('on',k===pi));el.querySelector('.svp').classList.toggle('end',pi===np-1)}}
+  const np=+el.dataset.np;if(np>1){const pi=cl(Math.round((70-r.top)/(PVH*.85)),0,np-1);if(el._pi!==pi){el._pi=pi;el.querySelectorAll('.svm-pg').forEach(g=>g.classList.toggle('act',+g.dataset.p===pi));{const ap=el.querySelector('.svm-pg.act');if(ap&&el.classList.contains('cur'))count(ap)}el.querySelectorAll('.svm-mh em i').forEach((d,k)=>d.classList.toggle('on',k===pi));el.querySelector('.svp').classList.toggle('end',pi===np-1)}}
  });
- feed.querySelectorAll('.svm-i').forEach((el,i)=>{el.classList.toggle('past',i<cur);const q=el.getBoundingClientRect();el.classList.toggle('cur',q.top<=vh*.5&&q.bottom>vh*.5)});
+ feed.querySelectorAll('.svm-i').forEach((el,i)=>{el.classList.toggle('past',i<cur);const q=el.getBoundingClientRect(),c=q.top<=vh*.5&&q.bottom>vh*.5,was=el.classList.contains('cur');el.classList.toggle('cur',c);if(c&&!was){const ap=el.querySelector('.svm-pg.act');if(ap)count(ap)}});
  if(h2){const hr=h2.getBoundingClientRect();if(RMo||hr.top<vh*.9)h2.classList.add('in');else if(hr.top>vh*1.1)h2.classList.remove('in')}
  const N=SVC.length,nEl=document.getElementById('svmN'),tEl=document.getElementById('svmT'),pEl=document.getElementById('svmP');
  if(nEl){nEl.innerHTML=pad(cur)+'<small>/ '+N+'</small>';tEl.textContent=SVC[cur][0];pEl.style.setProperty('--p',((cur+1)/N*100)+'%')}
- const bar=document.querySelector('.svm-bar'),fr=feed.getBoundingClientRect();if(bar)bar.classList.toggle('show',fr.top<vh*.5&&fr.bottom>vh*.5);
+ const bar=document.querySelector('.svm-bar'),fr=feed.getBoundingClientRect();const on=fr.top<vh*.5&&fr.bottom>vh*.5;if(bar)bar.classList.toggle('show',on);document.body.classList.toggle('svm-focus',on);
 }
 
 // canvas preview (only the SEO card uses one); other cards use real videos
@@ -2993,4 +3004,107 @@ setInterval(function(){
   .fx-h1 > .fx-smoke, .fx-h1 > .fx-pewpew { translate: none; }
 }
 </style>
+<style id="svm-pro">
+/* ===== Mobile services v2: every service is one full-screen page, no dead space, animated ===== */
+@media(max-width:900px){
+ /* compact intro so the first card is visible straight away */
+ #services{padding-top:4.5rem!important}
+ #services .w>h2{font-size:clamp(1.5rem,7vw,1.85rem)!important;line-height:1.12!important;margin-bottom:.3rem!important}
+ #services .w>p{font-size:.86rem!important;line-height:1.45!important;margin:.3rem 0 .85rem!important}
+ /* cards stack back to back: the next page pushes the last one away, no blank gaps */
+ #services .svm-i{margin:0!important;padding:0 0 12px!important}
+ #services .svm-i:last-child{padding-bottom:0!important}
+ #services .svm-i .svp{padding:.85rem .9rem .8rem!important;border-radius:26px;background:linear-gradient(165deg,#3d2c1e 0%,#2b1d13 62%,#231710 100%);border:1px solid rgba(206,156,56,.3);box-shadow:0 18px 40px rgba(43,29,19,.38),inset 0 1px 0 rgba(255,255,255,.09);opacity:1!important;transform:none!important;pointer-events:auto!important;transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+ #services .svm-i.past .svp{opacity:.5!important;transform:scale(.965)!important}
+ /* header strip */
+ #services .svm-mh{height:36px;margin:0 0 .6rem;padding-bottom:.5rem;border-bottom:1px solid rgba(206,156,56,.3)}
+ #services .svm-mh b{font:700 .8rem Montserrat,sans-serif;letter-spacing:.08em}
+ #services .svm-mh span{font:500 .92rem Jost,sans-serif}
+ #services .svm-mh small{font-size:.9rem!important;color:#CE9C38!important}
+ #services .svm-mh small{display:inline-block;animation:svmHint 1.8s ease-in-out infinite}
+ @keyframes svmHint{50%{transform:translateY(3px);opacity:.55}}
+ /* a page always fills the card: the video grows into spare room, lists and packages share it evenly */
+ #services .svm-i .pc{flex:1 1 0;min-height:0;display:flex;flex-direction:column}
+ #services .svm-pg{display:none}
+ #services .svm-pg.act{display:flex;flex-direction:column;gap:.6rem;flex:1 0 auto;min-height:100%;margin:0!important;width:100%;animation:none}
+ #services .svm-i .vid{flex:1 1 0;min-height:clamp(150px,27svh,240px);max-height:50svh;aspect-ratio:auto!important;width:100%;margin:0;border-radius:18px}
+ #services .svm-i .vid video,#services .svm-i .vid canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;scale:1;animation:svmKB 14s ease-in-out infinite alternate}
+ @keyframes svmKB{to{scale:1.07}}
+ #services .svm-i .hd{margin:.15rem 0 0;gap:.75rem;padding-bottom:.45rem}
+ #services .svm-i .hd .ic{width:46px;height:46px;margin:0;flex:none}
+ #services .svm-i .hd h3{font-size:clamp(1.1rem,5.2vw,1.4rem);line-height:1.15}
+ #services .svm-i .sub{font-size:.88rem;line-height:1.45;margin:0;opacity:.92}
+ #services .svm-i .sv-msg{font-size:1rem;line-height:1.35;padding:.85rem 1rem;margin:0}
+ #services .svm-i .inc{font-size:.84rem;line-height:1.45;margin:0;padding:.7rem .85rem}
+ #services .svm-i .lk{font-size:.84rem;margin:0}
+ #services .svm-i .ptt{margin:.25rem 0 0;padding:.65rem 0 0;font-size:1rem}
+ #services .svm-pg>.ptt:first-child{margin-top:0;padding-top:0;border-top:0}
+ #services .svm-i .dl{flex:1 1 auto;display:flex!important;flex-direction:column;justify-content:space-evenly;gap:.5rem;margin:0}
+ #services .svm-i .dl li{opacity:1;animation:none;padding:.65rem .8rem .65rem 1.9rem;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);font-size:.86rem;line-height:1.4}
+ #services .svm-i .dl li::before{left:.8rem;top:1.05em}
+ #services .svm-pg.hasvid .dl,#services .svm-pg.hasvid .pkg{flex:0 0 auto}
+ #services .svm-pg>.pkg:first-child{padding-top:.7rem}
+ #services .svm-i.tight .vid{min-height:clamp(96px,15svh,150px)}
+ #services .svm-i.tight .dl{gap:.35rem}
+ #services .svm-i.tight .dl li{padding:.5rem .75rem .5rem 1.8rem;font-size:.82rem}
+ #services .svm-i.tight .hd .ic{width:38px;height:38px}
+ #services .svm-i.tight .sub{font-size:.84rem}
+ #services .svm-i .pkg{flex:1 1 auto;display:grid!important;grid-template-columns:1fr!important;grid-auto-rows:1fr;gap:.65rem;margin:0}
+ #services .svm-i .pkc{padding:.85rem .95rem;gap:.4rem;opacity:1;transform:none;justify-content:center}
+ #services .svm-i .pkc h4{font-size:clamp(1.02rem,2.6svh,1.25rem)}
+ #services .svm-i .pr2 b{font-size:clamp(1.45rem,3.8svh,1.9rem)}
+ #services .svm-i .pkc ul{font-size:.8rem;gap:.25rem;margin:.1rem 0 .2rem}
+ #services .svm-i .pkc.main{background:linear-gradient(135deg,rgba(206,156,56,.24),rgba(206,156,56,.08))}
+ #services .svm-i .pkc .btn{padding:.6rem 1rem;margin-top:.4rem}
+ #services .svm-i .pfw{flex:1 1 0;min-height:210px;display:flex;flex-direction:column;margin:.2rem 0}
+ #services .svm-i .pfg{flex:1 1 0;min-height:0;max-height:none!important;overflow-y:auto}
+ /* call to action sits at the bottom of the page, clear of the floating chat buttons */
+ #services .svm-i .row{margin-top:auto;padding:.3rem 3.5rem 0 0;display:flex;gap:.55rem;flex-wrap:wrap}
+ #services .svm-i .row .btn{flex:1 1 100%;text-align:center;padding:.8rem 1rem;border-radius:99px}
+ /* while a service is on screen the floating buttons shrink so they never hide the text */
+ body.svm-focus #cbtn,body.svm-focus #waf{scale:.76;transform-origin:100% 100%;transition:scale .4s}
+ body.svm-focus #btt{opacity:0!important;pointer-events:none!important;scale:.6;transform-origin:0 100%;transition:opacity .3s,scale .4s}
+ /* motion: content builds in whenever a service (or one of its pages) comes on screen */
+ @keyframes svmIn{from{opacity:0;transform:translateY(22px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+ @keyframes svmInL{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+ @keyframes svmSlideL{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
+ @keyframes svmSlideR{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
+ @keyframes svmPop{from{opacity:0;transform:translateY(18px) scale(.92)}to{opacity:1;transform:none}}
+ @keyframes svmWord{from{transform:translateY(115%) rotate(4deg)}to{transform:none}}
+ #services .svm-i.cur .svm-pg.act>*:not(.dl):not(.pkg){animation:svmIn .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k2,0)*85ms + .05s)}
+ #services .svm-i.cur .svm-pg.act .dl li{animation:svmSlideL .65s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--q2,0)*95ms + .25s)}
+ #services .svm-i.cur .svm-pg.act .dl li:nth-child(even){animation-name:svmSlideR}
+ #services .svm-i.cur .svm-pg.act .pkc{animation:svmPop .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--q2,0)*110ms + .3s)}
+ #services .svm-i.cur .svm-pg.act .hd h3 .w1>span{animation:svmWord .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--j,0)*70ms + .25s)}
+ #services .svm-i.cur .svm-pg.act .hd .ic{animation:svmpop .9s .15s cubic-bezier(.2,1.4,.4,1) both,svmfl 4s 1.1s ease-in-out infinite}
+ #services .svm-i.cur .svm-sh{animation:svmsh 1.3s .1s ease-out 1 both}
+ #services .svm-i.cur .svm-pg.act .row .btn:not(.o){animation:svmIn .7s .5s both,svmpl 2.4s 1.9s ease-in-out infinite}
+ .lite #services .svm-i.cur .svm-pg.act>*:not(.dl):not(.pkg){animation-name:svmInL}
+ .lite #services .svm-i .vid video,.lite #services .svm-i .vid canvas{animation:none}
+ @media(prefers-reduced-motion:reduce){#services .svm-i *{animation:none!important}#services .svm-mh small{animation:none}}
+}
+</style>
+<style id="fmt-fix">
+/* ===== Content built for every screen: tidy grid, poster shown whole (never cropped) ===== */
+#work .fmt{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);grid-template-areas:"film reel" "post reel" "post cal";grid-template-rows:auto auto 1fr;gap:14px;align-items:start;width:min(520px,44vw);height:auto;margin-left:auto}
+#work .fmt .fm{position:relative;inset:auto;left:auto;right:auto;top:auto;bottom:auto}
+#work .fmt .f-film{grid-area:film;width:100%;aspect-ratio:16/9}
+#work .fmt .f-reel{grid-area:reel;width:100%;aspect-ratio:9/16}
+#work .fmt .f-post{grid-area:post;width:100%;aspect-ratio:auto;padding:52px 12px 40px;background:#fff}
+#work .fmt .cal{grid-area:cal;position:relative;right:auto;bottom:auto;width:100%;align-self:end}
+#work .fmt .f-post i{left:12px;top:12px}
+#work .fmt .f-post u{left:54px;top:22px}
+#work .fmt .f-post s{position:relative;display:block;inset:auto;left:auto;right:auto;top:auto;bottom:auto;width:100%;aspect-ratio:var(--ar,1);max-height:230px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#D9C3A0,#B08D62)}
+#work .fmt .f-post s::before{content:"";position:absolute;inset:-12px;background:var(--pimg,none) center/cover;filter:blur(14px) brightness(.92);opacity:.9}
+#work .fmt .f-post s img{position:relative;display:block;width:100%;height:100%;object-fit:contain;object-position:50% 50%}
+@media(max-width:900px){#work .fmt{width:100%;max-width:440px;height:auto;margin:1.6rem auto 0}#work .fmt .f-post s{max-height:190px}}
+</style>
+<script>
+/* poster tile: match the box to the picture so nothing is cut off, and label it with its real shape */
+(()=>{try{const t=document.querySelector('#work .f-post');if(!t)return;const s=t.querySelector('s'),im=s&&s.querySelector('img'),lb=t.querySelector('span');if(!im)return;
+const near=(r,v,e)=>Math.abs(r-v)<e;
+const go=()=>{if(!im.naturalWidth)return;const r=im.naturalWidth/im.naturalHeight;s.style.setProperty('--ar',Math.min(1.9,Math.max(.55,r)).toFixed(3));s.style.setProperty('--pimg','url("'+im.getAttribute('src')+'")');
+ if(lb)lb.textContent=near(r,1,.06)?'Post · 1:1':near(r,.8,.06)?'Post · 4:5':near(r,.5625,.05)?'Post · 9:16':near(r,1.778,.1)?'Post · 16:9':'Poster'};
+im.addEventListener('load',go);if(im.complete)go()}catch(e){}})();
+</script>
 </body></html>
