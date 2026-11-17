@@ -1384,10 +1384,10 @@ function go(i){if(!ready){pend=i;return}if(i===cur&&document.body.dataset.i)retu
 secs.forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(ready)s.classList.add('on');if(e.intersectionRect.height>=Math.min(e.boundingClientRect.height*.5,innerHeight*.4))go(secs.indexOf(s))}}),{threshold:[.01,.02,.03,.04,.05,.2,.35,.5,.65]}).observe(s));
 let hq=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;if(!hq&&!isLite){hq=1;requestAnimationFrame(()=>{hq=0;hv.style.setProperty('--mx',mx);hv.style.setProperty('--my',my)})}},{passive:true});
 const vio=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('vis',e.isIntersecting)),{rootMargin:'30% 0px'});secs.forEach(s=>vio.observe(s));
-const mDH=()=>DH=document.documentElement.scrollHeight;addEventListener('resize',mDH);addEventListener('load',mDH);setInterval(mDH,2500);
+const mDH=()=>DH=document.documentElement.scrollHeight;addEventListener('resize',mDH);addEventListener('load',mDH);try{new ResizeObserver(mDH).observe(document.body)}catch(e){}setInterval(()=>{if(!document.hidden)mDH()},5000);
 
 fl.src=document.querySelector('.lg-gold').src;
-const nv=document.querySelector('nav'),sk=()=>nv.classList.toggle('sc',scrollY>40);addEventListener('scroll',sk);sk();
+const nv=document.querySelector('nav'),sk=()=>nv.classList.toggle('sc',scrollY>40);addEventListener('scroll',sk,{passive:true});sk();
 /* ===== Medagency assistant v2: realtime, knowledge-based ===== */
 const cw=document.getElementById('cw'),cmsg=document.getElementById('cmsg'),ci=document.getElementById('ci'),cc=document.getElementById('cc'),cbd=document.getElementById('cbd');
 let greeted=0;
@@ -1567,7 +1567,7 @@ const PF=[
 {c:4,t:'Doctor education lesson',src:'',video:'media/anmol-5.mp4',poster:'media/anmol-5.jpg'}
 ];
 const SVC=[
-['Social Media Marketing','',[],I0[0],{h:'Social Media Marketing',sub:'Strategy, content and community, built for clinics.',msg:'Our on-board doctors review and approve every script to verify its medical accuracy.',inc:'What’s included: social media strategy, feed development, mood board and brand kit, research and trends, carousel building, and script writing with doctor approval.',tl:'Packages',nocart:true,tiers:[{n:'Silver Package',price:'PKR 150,000',per:'per month',cta:false,items:['Script writing (with doctor approval)','Daily stories (30 per month)','6 reels','Static posts','Carousel posts']},{n:'Premium Package',price:'PKR 250,000',per:'per month',cta:false,items:['Script writing (with doctor approval)','Daily stories (30 per month)','8 reels']}]}],
+['Social Media Marketing','',[],I0[0],{h:'Social Media Marketing',sub:'Strategy, content and community, built for clinics.',msg:'Our on-board doctors review and approve every script to verify its medical accuracy.',inc:'What’s included: social media strategy, feed development, mood board and brand kit, research and trends, carousel building, and script writing with doctor approval.',tl:'Packages',tiers:[{n:'Silver Package',price:'PKR 150,000',per:'per month',cta:false,items:['Script writing (with doctor approval)','Daily stories (30 per month)','6 reels','Static posts','Carousel posts']},{n:'Premium Package',price:'PKR 250,000',per:'per month',cta:false,items:['Script writing (with doctor approval)','Daily stories (30 per month)','8 reels']}]}],
 ['Content Strategy & Branding','',[],I0[1],{h:'Content Strategy & Branding',sub:'A clear voice, look and content plan so every post feels like your clinic.',pts:EX0[1][1]}],
 ['SEO, AEO & GEO','',[],I0[2],{h:'SEO, AEO & GEO',sub:'Be found on Google, in answer engines and in AI search when patients look for care.',tl:'Choose your option',tiers:[{n:'Option 1: SEO',price:'PKR 100,000',items:['Google Business Profile setup and optimization','Ranking on Google and other search engines']},{n:'Option 2: SEO + AEO + GEO',best:'Best value',price:'PKR 200,000' /* placeholder price: confirm with the client */,items:['Everything in SEO','Plus AEO and GEO: when people ask ChatGPT or other AI tools, your clinic or doctor shows up on top']}]}],
 ['Meta Ads & Paid Advertising','',[],I0[3],{h:'Meta Ads That Fill Your Appointment Book',sub:'Likes don’t pay the bills. Booked patients do. We run Instagram and Facebook ads built for one goal: turning interest into appointments.',ptsT:'What we do for you',pts:[['Strategy and offer','Decide who to target and which services to promote.'],['Doctor-approved ad content','Scripts, reels, and creatives created by our team.'],['Smart targeting','Location, age, interest, and retargeting.'],['Expert management','Specialists monitor and improve campaigns daily.'],['Clear reporting','Monthly report on spend, enquiries, and bookings.']],link:{t:'Pair your ads with an AI agent that replies and books instantly.',to:7},box:{t:'Why it pays off',d:'Example: a clinic spending PKR 500,000 per month on ads can bring in several times that amount in patient appointments. The exact result depends on your specialty, your offer, and your budget.'},tl:'Pricing',tiers:[{n:'Management fee',price:'PKR 200,000',per:'per month',items:['Recommended monthly ad budget: agreed with you on the call. It goes to Meta and is separate from our fee.' /* add the recommended budget figure here once the client confirms it */]}]}],
@@ -1590,7 +1590,7 @@ function svBody(i,full){const s=SVC[i],D=s[4],W=full?(LOW?640:1120):(LOW?480:800
  const bk=t=>`<a class="btn" target="_blank" rel="noopener" href="${q(t)}">Book a Discovery Call</a>`;
  const tierH=t=>`<div class="pkc${t.best?' best':''}${t.size?' '+t.size:''}">${t.best?`<em class="bst">${t.best}</em>`:''}<h4>${t.n}</h4>${t.price?`<div class="pr2"><b>${t.price}</b>${t.per?` <span>${t.per}</span>`:''}</div>`:''}${t.items?`<ul>${t.items.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}${t.cta!==false?bk(t.n):''}</div>`;
  const li=x=>Array.isArray(x)?`<li><b>${x[0]}.</b> ${x[1]}</li>`:`<li>${x}</li>`;
- const media=VID[i]?`<video class="vc" src="${VID[i]}" poster="${VID[i].replace('.mp4','.jpg')}" muted loop autoplay playsinline preload="auto"></video>`:`<canvas class="vc" width="${W}" height="${Hh}"></canvas>`;
+ const media=VID[i]?`<video class="vc" src="${VID[i]}" poster="${VID[i].replace('.mp4','.jpg')}" muted loop autoplay playsinline preload="metadata"></video>`:`<canvas class="vc" width="${W}" height="${Hh}"></canvas>`;
  const RV={0:[3,'Real reel'],1:[2,'Brand style'],3:[4,'Real ad'],8:[1,'Doctor-led'],9:[5,'Real lesson']},rv=RV[ORD[i]]?`<button type="button" class="rvp" aria-label="Real sample video, tap for sound"><video src="media/anmol-${RV[ORD[i]][0]}.mp4" poster="media/anmol-${RV[ORD[i]][0]}.jpg" muted loop autoplay playsinline preload="metadata"></video><b>${RV[ORD[i]][1]}</b></button>`:'';
  const vid=D.pf?pfHTML():`<div class="vid">${media}${rv}<span class="ai">AI preview</span>${VID[i]?'':'<span class="vt">00:00 / 00:09</span><button class="pp" type="button" aria-label="Pause or play">❚❚</button><div class="cap"></div><div class="vp"><i></i></div>'}${full?'':'<button class="fv" type="button" data-full>Full view</button>'}</div>`;
  return (D.msg?`<div class="sv-msg">${D.msg}</div>`:'')+(D.pf?'':vid)
@@ -2582,4 +2582,13 @@ nav .lgw img,nav.sc .lgw img{position:absolute!important;left:0!important;top:0!
 .fr video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1;background:#2b1d13;pointer-events:none}
 .fr figcaption{z-index:3}
 </style>
+<script>
+/* perf: start loading videos just before they scroll into view, so they play instantly */
+(()=>{try{var cn=navigator.connection||{};if(cn.saveData||/(^|-)[23]g$/.test(cn.effectiveType||'')||!('IntersectionObserver' in window))return;
+var io=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;var v=x.target;io.unobserve(v);if(v.preload==='none'&&!v.dataset.u)v.preload='metadata'})},{rootMargin:'700px 0px'});
+var add=function(r){r.querySelectorAll('video[preload="none"]').forEach(function(v){if(v._w)return;v._w=1;io.observe(v)})};
+add(document);
+['svp','sfc'].forEach(function(id){var e=document.getElementById(id);if(e)new MutationObserver(function(){add(e)}).observe(e,{childList:true,subtree:true})});
+}catch(e){}})();
+</script>
 </body></html>
