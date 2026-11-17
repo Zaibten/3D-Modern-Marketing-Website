@@ -1395,7 +1395,7 @@ let greeted=0;
 const chs=document.querySelector('#cw .ch small'),ST='Online · replies in seconds',RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 chs.textContent=ST;cmsg.setAttribute('aria-live','polite');ci.placeholder='Ask about services, pricing, our app…';
 const DEF=['Our services','Pricing','MedBook app','Get a quote'];
-const SVCN=['Social media marketing','Content strategy & branding','SEO, AEO & GEO','Meta ads & paid advertising','Photography & videography','3D animated funnel websites','Doctor–patient app (MedBook)','AI automation','Medical content creation & brand sponsorship','Digital education & course development'];
+const SVCN=['Social media marketing','Content strategy & branding','SEO, AEO & GEO','Meta ads & paid advertising','Photography & videography','3D animated funnel websites','Doctor–patient app (MedBook)','AI automation','Medical content by qualified doctors','Digital education & course development'];
 const KB=[
 {id:'hi',k:['hi','hello','hey','salam','assalam','aoa','hola','good morning','good evening','good afternoon'],a:{t:'Hello, welcome to Medagency. We are a healthcare marketing studio that helps clinics get more booked patients through content, ads, SEO, 3D websites, apps and AI. What would you like to explore?'},f:DEF},
 {id:'services',k:['service','services','offer','what do you do','what you do','provide','capabilities','solutions','everything','specialize'],a:{t:'We offer ten services built for clinics and hospitals:',l:SVCN,go:'services',gl:'See all services'},f:['Pricing','MedBook app','AI automation','Get a quote']},
@@ -1566,18 +1566,17 @@ const PF=[
 {c:4,t:'Doctor explains skincare',src:'',video:'media/anmol-1.mp4',poster:'media/anmol-1.jpg'},
 {c:4,t:'Doctor education lesson',src:'',video:'media/anmol-5.mp4',poster:'media/anmol-5.jpg'}
 ];
-const SCR='Script writing (research, trends, and approval from our on-board doctor to verify medical accuracy)';
 const SVC=[
-['Social Media Marketing','',[],I0[0],{h:'Social Media Marketing',sub:'Strategy, content and community, built for clinics.',msg:'Our on-board doctors review and approve every script to verify its medical accuracy.',inc:'What’s included: social media strategy, feed development, mood board and brand kit, research and trends, carousel building, and script writing with doctor approval.',tl:'Packages',tiers:[{n:'Silver Package',price:'PKR 150,000',per:'per month',btn:'Book This Package',items:[SCR,'Daily stories (30 per month)','6 reels','Static posts','Carousel posts']},{n:'Premium Package',price:'PKR 250,000',per:'per month',btn:'Book This Package',items:[SCR,'Daily stories (30 per month)','8 reels','4 static posts','4 carousel posts']}]}],
+['Social Media Marketing','',[],I0[0],{h:'Social Media Marketing',sub:'Strategy, content and community, built for clinics.',msg:'Our on-board doctors review and approve every script to verify its medical accuracy.',inc:'What’s included: social media strategy, feed development, mood board and brand kit, research and trends, carousel building, and script writing with doctor approval.',tl:'Packages',tiers:[{n:'Silver Package',price:'PKR 150,000',per:'per month',cta:false,items:['Script writing (with doctor approval)','Daily stories (30 per month)','6 reels','Static posts','Carousel posts']},{n:'Premium Package',price:'PKR 250,000',per:'per month',cta:false,items:['Script writing (with doctor approval)','Daily stories (30 per month)','8 reels']}]}],
 ['Content Strategy & Branding','',[],I0[1],{h:'Content Strategy & Branding',sub:'A clear voice, look and content plan so every post feels like your clinic.',pts:EX0[1][1]}],
-['SEO, AEO & GEO','',[],I0[2],{h:'SEO, AEO & GEO',sub:'Be found on Google, in answer engines and in AI search when patients look for care.',tl:'Choose your option',tiers:[{n:'Option 1: SEO',price:'PKR 100,000',items:['Google Business Profile setup and optimization','Ranking on Google and other search engines']},{n:'Option 2: SEO + AEO + GEO',best:'Best value',price:'PKR 170,000',items:['Everything in SEO','AEO and GEO: when people ask ChatGPT or any other AI tool, your clinic and your doctor show up on top']}]}],
-['Meta Ads & Paid Advertising','',[],I0[3],{h:'Meta Ads That Fill Your Appointment Book',sub:'Likes don’t pay the bills. Booked patients do. We run Instagram and Facebook ads built for one goal: more appointments for your clinic.',ptsT:'What we do for you',pts:[['Strategy and offer','We decide who to target and which services to promote, so your ads attract patients who are ready to book.'],['Doctor-approved ad content','Ad scripts, reels, and creatives are created by our team and verified by our on-board doctor for medical accuracy.'],['Smart targeting','We reach the right people by location, age, and interest, and we show your ads again to people who already visited your page.'],['Expert management','Our Meta ad specialists set up, monitor, and improve your campaigns every day.'],['Booking-focused funnel','Ads send patients to WhatsApp, a lead form, or a booking page, so interest turns into appointments.'],['Clear reporting','Every month you see how much you spent, how many enquiries came in, and how many turned into bookings.']],link:{t:'Make it even stronger with AI Automation: when an ad brings in a patient, our AI agent replies instantly, answers questions, and books the appointment, even at midnight. No enquiry gets missed.',to:7},box:{t:'Why it pays off',d:'Example: a clinic spending PKR 500,000 per month on ads can bring in several times that amount in patient appointments. The exact result depends on your specialty, your offer, and your budget.'},tl:'Pricing',tiers:[{n:'Management fee',price:'PKR 200,000',per:'per month',items:['Recommended monthly ad budget: depends on your niche. It goes to Meta and is separate from our fee.'],note:'No long contracts. You see every rupee of your ad spend.'}]}],
-['Photography & Videography','',[],I0[4],{h:'Photography & Videography',sub:'Cinematic shoots in your clinic, from doctor portraits to full hospital films. Browse the work first, pricing is below.',pf:true,tl:'Pricing',tiers:[{n:'Still shots and carousels',price:'PKR 5,000',per:'per carousel',items:['The image carousel is also shared via mail']},{n:'Short-form videos',price:'PKR 15,000',per:'per video'},{n:'Commercial ad videos',price:'PKR 30,000',per:'per video'},{n:'Series',price:'PKR 10,000',per:'per reel'},{n:'Talking head videos',price:'PKR 15,000',per:'per reel'}]}],
+['SEO, AEO & GEO','',[],I0[2],{h:'SEO, AEO & GEO',sub:'Be found on Google, in answer engines and in AI search when patients look for care.',tl:'Choose your option',tiers:[{n:'Option 1: SEO',price:'PKR 100,000',items:['Google Business Profile setup and optimization','Ranking on Google and other search engines']},{n:'Option 2: SEO + AEO + GEO',best:'Best value',price:'PKR 200,000' /* placeholder price: confirm with the client */,items:['Everything in SEO','Plus AEO and GEO: when people ask ChatGPT or other AI tools, your clinic or doctor shows up on top']}]}],
+['Meta Ads & Paid Advertising','',[],I0[3],{h:'Meta Ads That Fill Your Appointment Book',sub:'Likes don’t pay the bills. Booked patients do. We run Instagram and Facebook ads built for one goal: turning interest into appointments.',ptsT:'What we do for you',pts:[['Strategy and offer','Decide who to target and which services to promote.'],['Doctor-approved ad content','Scripts, reels, and creatives created by our team.'],['Smart targeting','Location, age, interest, and retargeting.'],['Expert management','Specialists monitor and improve campaigns daily.'],['Clear reporting','Monthly report on spend, enquiries, and bookings.']],link:{t:'Pair your ads with an AI agent that replies and books instantly.',to:7},box:{t:'Why it pays off',d:'Example: a clinic spending PKR 500,000 per month on ads can bring in several times that amount in patient appointments. The exact result depends on your specialty, your offer, and your budget.'},tl:'Pricing',tiers:[{n:'Management fee',price:'PKR 200,000',per:'per month',items:['Recommended monthly ad budget: agreed with you on the call. It goes to Meta and is separate from our fee.' /* add the recommended budget figure here once the client confirms it */]}]}],
+['Photography & Videography','',[],I0[4],{h:'Photography & Videography',sub:'Cinematic shoots in your clinic, from doctor portraits to full hospital films. Browse the work first, pricing is below.',pf:true,tl:'Pricing',tiers:[{n:'Still shots and carousels',price:'PKR 5,000',per:'per carousel',items:['Image carousel also shared via mail']},{n:'Short-form videos',price:'PKR 15,000',per:'per video'},{n:'Commercial ad videos',price:'PKR 30,000',per:'per video'},{n:'Series',price:'PKR 10,000',per:'per reel'},{n:'Talking head videos',price:'PKR 15,000',per:'per reel'}]}],
 ['3D Immersive Funnel Websites','',[],I0[5],{h:'3D Animated Funnel Websites & Interactive Experiences',sub:'Immersive 3D sites that guide visitors from first look to booked visit.',pts:EX0[5][1],tiers:[{n:'3D Immersive Funnel Website',price:'PKR 150,000'}]}],
-['Doctor–Patient App Development','',[],I0[6],{h:'Your patient’s full history, right inside the chat.',sub:'A simple app where doctors talk to patients directly and see everything about them in one place, on their own phone.',ptsT:'Key features',pts:[['Complete patient history inside the chat','Hospitals and clinics usually keep patient records in their own software, not on the doctor’s phone. With our app, a patient’s files, test results, procedure photos, and prescribed medicines are all saved inside the chat with that patient. When the doctor opens the chat, they instantly remember who the patient is, what procedures were done, and which medicines were prescribed. Nothing is lost and nothing needs to be searched for.'],['Patients talk directly to the doctor','Today, patient messages usually go to the doctor’s manager, who forwards them to the doctor. When one manager forwards chats for 10 patients, messages get mixed up. With our app, each patient’s messages go straight to the doctor in their own separate chat. No middleman, no confusion.'],['Doctors stay in control of their time','The doctor does not have to reply right away, like on WhatsApp. They set their own reply timings, for example a set time each day. Patients know when to expect an answer, and the doctor responds to everyone in one go. Replying is quick and easy.']],tl:'Pricing',tiers:[{n:'Doctor–Patient App',price:'PKR 500,000'}]}],
-['AI Automation','',[],I0[7],{h:'AI Automation',sub:'AI agents that answer, book and follow up around the clock, so no enquiry is lost.',tl:'Choose your package',tiers:[{n:'Full AI Automation (all three parts)',size:'main',price:'PKR 250,000',items:['Part 1: Social media automation','Part 2: Appointment booking workflow','Part 3: Follow-ups and confirmations']},{n:'Part 1: Social media automation',size:'sm',items:['AI replies automatically to comments','AI replies to DMs and new followers','AI replies to WhatsApp and messages on any social media platform']},{n:'Part 2: Appointment booking workflow',size:'sm',items:['From the patient’s first message asking about services to the confirmed booking, the whole process is handled by an AI agent']},{n:'Part 3: Follow-ups and confirmations',size:'sm',items:['The AI agent calls or messages patients to confirm bookings and follow up']}]}],
-['Medical Content Creation & Brand Sponsorship','',[],I0[10],{h:'Medical Content Creation & Brand Sponsorship',sub:'We build a complete medical content strategy for doctors, starting with in-depth research to identify reputable international healthcare, pharmaceutical, skincare, wellness, and medical brands that actively collaborate with doctors and sponsor educational content.',ptsT:'Our services',pts:[['Brand Research','Identify suitable international brands, their sponsorship opportunities, and collaboration requirements.'],['Content Strategy & Scripts','Develop engaging, research-backed video ideas and professional scripts tailored to the doctor’s expertise.'],['Medical Supervision','Every script is reviewed and approved by our onboard doctor to ensure medical accuracy, credibility, and reliability.'],['Brand Outreach & Sponsorships','Contact relevant brands through professional emails and direct outreach to secure paid collaborations, sponsorships, and long-term partnerships.']],box:{t:'Our goal',d:'To build the doctor’s professional presence, create credible medical content, and turn their expertise into valuable brand collaborations and sponsorship opportunities.'}}],
-['Digital Education and Course Development','',[],ICE,{h:'From Expert to Educator: Building a Doctor’s Digital Education Business',sub:'',ptsT:'What we do',pts:[['Personal branding','Build the doctor’s authority and online presence.'],['Course development','Turn their knowledge into structured courses.'],['Curriculum planning','Develop modules, lessons and learning outcomes.'],['Scriptwriting','Write engaging educational scripts.'],['Production','Film and record professional lessons.'],['Editing','Edit lessons, reels and promotional videos.'],['Marketing','Build anticipation and launch campaigns.'],['Sales funnel','Create a journey from followers to paying students.'],['Course management','Help package, promote and sell recorded courses.']],pts2T:'What can the doctor sell?',pts2:[['A. Recorded online courses','Pre-recorded courses divided into modules. Students purchase access and learn at their own pace. Example: a complete beginner-to-advanced professional training course.'],['B. Paid masterclasses','One-off specialised classes, recorded live or filmed in advance. Example: a 3-hour masterclass on a specialised subject.'],['C. Premium mentorship programmes','Limited seats, direct interaction, assignments and personalised feedback. Example: an 8-week professional mentorship programme.'],['D. Digital products','Downloadable guides, e-books, protocols, templates, checklists and study materials.']]}]
+['Doctor–Patient App Development','',[],I0[6],{h:'Your patient’s full history, right inside the chat.',sub:'A simple app where doctors talk to patients directly and see everything about them in one place.',pts:[['Complete patient history inside the chat','Files, test results, procedure photos and prescribed medicines, all in one place.'],['Patients talk directly to the doctor','No middleman or manager. Straight to the doctor in a separate chat.'],['Doctors stay in control of their time','Set reply timings and reply in bulk, unlike WhatsApp.']],tiers:[{n:'Doctor–Patient App',price:'PKR 500,000'}]}],
+['AI Automation','',[],I0[7],{h:'AI Automation',sub:'AI agents that answer, book and follow up around the clock, so no enquiry is lost.',tl:'Choose your package',tiers:[{n:'Full AI automation package',size:'main',items:['Social media automation','Appointment booking workflow','Follow-ups and confirmations']},{n:'Part 1: Social media automation',size:'sm',items:['AI replies to comments, DMs, new followers and WhatsApp.']},{n:'Part 2: Appointment booking workflow',size:'sm',items:['From the first message to a confirmed booking, handled by an AI agent.']},{n:'Part 3: Follow-ups and confirmations',size:'sm',items:['AI calls and messages to confirm bookings and follow up.']}]}],
+['Medical Content Creation by Qualified Doctors','',[],I0[10],{h:'Medical Content Creation by Qualified Doctors',sub:'Patient education written and reviewed by licensed doctors for accuracy and trust.',pts:EX0[10][1]}],
+['Digital Education and Course Development','',[],ICE,{h:'From Expert to Educator: Building a Doctor’s Digital Education Business',sub:'',pts:[['Personal branding','Build the doctor’s authority and online presence.'],['Course development','Turn their knowledge into structured courses.'],['Curriculum planning','Develop modules, lessons and learning outcomes.'],['Scriptwriting','Write engaging educational scripts.'],['Production','Film and record professional lessons.'],['Editing','Edit lessons, reels and promotional videos.'],['Marketing','Build anticipation and launch campaigns.'],['Sales funnel','Create a journey from followers to paying students.'],['Course management','Help package, promote and sell recorded courses.']],box:{t:'A. Recorded online courses',d:'Pre-recorded courses divided into modules. Students learn at their own pace. Example: a complete beginner-to-advanced professional training course.'}}]
 ];
 /* order: AI Automation, Social Media, SEO, then the rest */
 const ORD=[7,0,2,1,3,4,5,6,8,9];{const t=ORD.map(o=>SVC[o]);SVC.splice(0,SVC.length,...t);SVC.forEach(x=>{if(x[4].link)x[4].link.to=SVC.findIndex(y=>y[0]==='AI Automation')});const v={};ORD.forEach((o,n)=>{if(VID[o])v[n]=VID[o]});Object.keys(VID).forEach(k=>delete VID[k]);Object.assign(VID,v)}
@@ -1588,8 +1587,8 @@ svl.innerHTML=sfl.innerHTML=SVC.map(liH).join('');
 function pfHTML(){return `<div class="pfw"><div class="pfk">Our work</div><div class="pft" role="tablist"><button type="button" class="on" data-pf="a">All work</button>${PF_CATS.map((n,c)=>`<button type="button" data-pf="${c}">${n}</button>`).join('')}</div><div class="pfg">${PF.map(it=>`<div class="pfi" data-c="${it.c}"><div class="pfm">${it.video?`<video src="${it.video}"${it.poster?` poster="${it.poster}"`:''} preload="none" muted loop playsinline data-pa></video>`:it.src?`<img src="${it.src}" alt="${it.t}" loading="lazy">`:'<u></u>'}</div><span>${it.t}</span></div>`).join('')}</div></div>`}
 function svBody(i,full){const s=SVC[i],D=s[4],W=full?(LOW?640:1120):(LOW?480:800),Hh=W*9/16;
  const q=t=>link(WA,'Hi Medagency, I’d like to book a discovery call about '+s[0]+(t?' ('+t+')':'')+'.');
- const bk=(t,l)=>`<a class="btn" target="_blank" rel="noopener" href="${q(t)}">${l||'Book a Discovery Call'}</a>`;
- const tierH=t=>`<div class="pkc${t.best?' best':''}${t.size?' '+t.size:''}">${t.best?`<em class="bst">${t.best}</em>`:''}<h4>${t.n}</h4>${t.price?`<div class="pr2"><b>${t.price}</b>${t.per?` <span>${t.per}</span>`:''}</div>`:''}${t.items?`<ul>${t.items.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}${t.note?`<p class="pnote">${t.note}</p>`:''}${t.cta!==false?bk(t.n,t.btn):''}</div>`;
+ const bk=t=>`<a class="btn" target="_blank" rel="noopener" href="${q(t)}">Book a Discovery Call</a>`;
+ const tierH=t=>`<div class="pkc${t.best?' best':''}${t.size?' '+t.size:''}">${t.best?`<em class="bst">${t.best}</em>`:''}<h4>${t.n}</h4>${t.price?`<div class="pr2"><b>${t.price}</b>${t.per?` <span>${t.per}</span>`:''}</div>`:''}${t.items?`<ul>${t.items.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}${t.cta!==false?bk(t.n):''}</div>`;
  const li=x=>Array.isArray(x)?`<li><b>${x[0]}.</b> ${x[1]}</li>`:`<li>${x}</li>`;
  const media=VID[i]?`<video class="vc" src="${VID[i]}" poster="${VID[i].replace('.mp4','.jpg')}" muted loop autoplay playsinline preload="metadata"></video>`:`<canvas class="vc" width="${W}" height="${Hh}"></canvas>`;
  const RV={0:[3,'Real reel'],1:[2,'Brand style'],3:[4,'Real ad'],8:[1,'Doctor-led'],9:[5,'Real lesson']},rv=RV[ORD[i]]?`<button type="button" class="rvp" aria-label="Real sample video, tap for sound"><video src="media/anmol-${RV[ORD[i]][0]}.mp4" poster="media/anmol-${RV[ORD[i]][0]}.jpg" muted loop autoplay playsinline preload="metadata"></video><b>${RV[ORD[i]][1]}</b></button>`:'';
@@ -1598,7 +1597,6 @@ function svBody(i,full){const s=SVC[i],D=s[4],W=full?(LOW?640:1120):(LOW?480:800
  +`<div class="hd"><svg class="ic" viewBox="0 0 120 120">${s[3]}</svg><h3>${D.h}</h3></div>`
  +(D.sub?`<p class="sub">${D.sub}</p>`:'')+(D.pf?vid:'')+(D.inc?`<p class="inc">${D.inc}</p>`:'')
  +(D.pts?`${D.ptsT?`<div class="ptt">${D.ptsT}</div>`:''}<ul class="dl one">${D.pts.map(li).join('')}</ul>`:'')
- +(D.pts2?`<div class="ptt">${D.pts2T}</div><ul class="dl one">${D.pts2.map(li).join('')}</ul>`:'')
  +(D.link?`<p class="lk">${D.link.t} <a class="lnk" role="button" tabindex="0" data-goto="${D.link.to}">See AI Automation</a></p>`:'')
  +(D.box?`<div class="bx"><b>${D.box.t}</b><p>${D.box.d}</p></div>`:'')
  +(D.tiers?`<div class="ptt">${D.tl||'Pricing'}</div><div class="pkg">${D.tiers.map(tierH).join('')}</div>`:'')
@@ -1946,209 +1944,139 @@ if(w){[0,1.4,2.8].forEach(d=>{const h=document.createElement('div');h.className=
 document.querySelectorAll('.h4-t b').forEach(b=>{const m=b.textContent.match(/^(\d+)(.*)$/);if(!m)return;const n=+m[1],suf=m[2],t0=performance.now()+900;const f=now=>{const p=Math.max(0,Math.min(1,(now-t0)/1500)),v=Math.round(n*(1-Math.pow(1-p,3)));b.textContent=v+suf;if(p<1)requestAnimationFrame(f)};b.textContent='0'+suf;requestAnimationFrame(f)});
 })();
 </script>
-<style id="svx-css">
-/* ===== Services (mobile v2): sticky swipeable tabs, one full card at a time, skeleton loaders ===== */
-@keyframes sxsk{to{background-position:-220% 0}}
-@keyframes sxIn{from{opacity:0;transform:translate(var(--dx,18px),14px)}}
-@media(max-width:900px){
- #services{display:block!important;min-height:0!important;align-items:flex-start;padding:5.2rem 5vw 2.6rem!important;content-visibility:visible!important;contain-intrinsic-size:auto!important}
- #services>.w{scale:none!important;translate:none!important;opacity:1!important;transform:none!important}
- #services h2{font-size:clamp(1.7rem,7.4vw,2.2rem);margin-bottom:.55rem}
- #services .w>p{font-size:.95rem;line-height:1.5;margin-bottom:.9rem;max-width:none}
- #svm{display:block;margin-top:.4rem;position:relative;opacity:1!important;translate:none!important;scale:none!important;rotate:none!important;transform:none!important}
- .sx-tabs{position:sticky;top:var(--sxt,58px);z-index:30;display:flex;gap:.45rem;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;width:100vw;box-sizing:border-box;margin:0 calc(50% - 50vw) .8rem;padding:.55rem 5vw;background:rgba(251,247,240,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(68,49,36,.12);-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent)}
- .sx-tabs::-webkit-scrollbar{display:none}
- .sx-tabs button{flex:none;scroll-snap-align:center;display:flex;align-items:center;gap:.45rem;padding:.55rem .9rem;border-radius:99px;border:1px solid rgba(68,49,36,.28);background:#fff;color:#443124;font:600 .76rem/1 Montserrat,sans-serif;white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .25s,color .25s,border-color .25s,transform .25s}
- .sx-tabs button i{font:700 .62rem Montserrat,sans-serif;font-style:normal;color:#B08D62}
- .sx-tabs button.on{background:#443124;border-color:#443124;color:#F4EBDD;transform:scale(1.04)}
- .sx-tabs button.on i{color:#CE9C38}
- .sx-card{position:relative}
- .sx-card .svp{min-height:0!important;padding:.9rem!important;border-radius:22px;transform:none!important;box-shadow:0 18px 40px rgba(43,29,19,.28)}
- .sx-card .pc{animation:none!important;display:flex;flex-direction:column;gap:.85rem}
- .sx-card .pc>*{margin:0!important}
- .sx-card.go .pc>*{animation:sxIn .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k,0)*55ms)}
- .sx-card.back{--dx:-18px}
- .sx .vid{order:-3;width:100%;border-radius:14px;aspect-ratio:16/9;position:relative;overflow:hidden}
- .sx .vid::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(110deg,#2b1d13 25%,#4a3524 45%,#2b1d13 65%);background-size:220% 100%;animation:sxsk 1.2s linear infinite}
- .sx .vid.ready::before{display:none}
- .sx .vid canvas,.sx .vid video.vc{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none!important;z-index:1}
- .sx .vid video.vc{opacity:0;transition:opacity .6s ease;z-index:2}
- .sx .vid.vready video.vc{opacity:1}
- .sx .vid .ai,.sx .vid .cap,.sx .vid .vt,.sx .vid .vp{z-index:4}.sx .vid .rvp{z-index:5}
- .sx .sv-msg{order:-2;font-size:1.18rem;line-height:1.3;padding:1.1rem 1rem 1rem}
- .sx .sv-msg::before{content:"✓ Doctor-approved";display:block;font:700 .62rem Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.75;margin-bottom:.45rem}
- .sx .hd{gap:.7rem;padding:0;margin:.1rem 0 0!important}
- .sx .hd .ic{width:44px;height:44px;flex:none;margin:0}
- .sx .hd h3{font-size:1.28rem;line-height:1.2}
- .sx .sub{font-size:.92rem;line-height:1.55;max-width:none}
- .sx .inc,.sx .lk{font-size:.88rem;line-height:1.55;max-width:none}
- .sx .ptt{font-size:1.02rem;padding-top:.9rem}
- .sx .dl{grid-template-columns:1fr!important;gap:.55rem!important}
- .sx .dl li{opacity:1!important;animation:none!important;font-size:.88rem;line-height:1.5;padding:.7rem .8rem .7rem 1.9rem;background:rgba(255,255,255,.06);border-radius:12px}
- .sx .dl li::before{left:.8rem;top:1.05em}
- .sx .pkg{grid-template-columns:minmax(0,1fr);gap:.9rem}
- .sx .pkc{padding:1rem}.sx .pkc.main{padding:1.1rem}
- .sx .pr2 b{font-size:1.55rem}
- .sx .pkc ul{font-size:.86rem;line-height:1.45}
- .sx .pkc .btn{width:100%;box-sizing:border-box;margin-top:.5rem}
- .sx .pnote{margin:.1rem 0 .2rem;font-size:.82rem;color:#d9c3a0;max-width:none}
- .sx .row{display:flex;flex-direction:column;gap:.6rem}
- .sx .row .btn{width:100%;box-sizing:border-box;text-align:center}
- .sx .pft{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -.9rem .7rem;padding:0 .9rem}.sx .pft::-webkit-scrollbar{display:none}.sx .pft button{flex:none}
- .sx .pfg{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.7rem;max-height:none!important;overflow:visible!important}
- .sx .pfi{aspect-ratio:4/5}
- .sx .pfi video,.sx .pfi img{opacity:0;transition:opacity .5s}.sx .pfi video.rd,.sx .pfi img.rd{opacity:1}
- .sx-nav{display:flex;align-items:center;gap:.6rem;margin-top:1rem}
- .sx-nav button{flex:1;min-width:0;display:flex;align-items:center;gap:.5rem;padding:.75rem .9rem;border-radius:14px;border:1px solid rgba(68,49,36,.25);background:#fff;color:#443124;font:600 .74rem Montserrat,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
- .sx-nav .sx-nx{justify-content:flex-end;text-align:right}
- .sx-nav span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
- .sx-nav b{color:#B08D62;font-size:1rem;flex:none}
- .sx-ct{font:600 .72rem Montserrat,sans-serif;font-style:normal;color:#6B4E37;flex:none}
-}
-@media(prefers-reduced-motion:reduce){.sx-card.go .pc>*{animation:none!important}.sx .vid::before{animation:none}}
-
-/* ===== Hero text motion ===== */
-#hero h1{position:relative}
-#hero h1 .hw{display:inline-block;overflow:hidden;vertical-align:top;padding:.08em .03em .16em;margin:-.08em -.03em -.16em}
-#hero h1 .hwi{display:inline-block;transform-origin:50% 100%;will-change:transform,opacity,filter}
-html.hjs #hero:not(.hgo) h1 .hwi{opacity:0;transform:translateY(115%) rotateX(-80deg);filter:blur(10px)}
-#hero.hgo h1 .hwi{animation:hwIn 1s cubic-bezier(.16,1,.3,1) calc(var(--i)*65ms + 120ms) both}
-@keyframes hwIn{from{opacity:0;transform:translateY(115%) rotateX(-80deg) scale(.96);filter:blur(10px)}60%{filter:blur(0)}to{opacity:1;transform:none;filter:blur(0)}}
-#hero h1 .hwi.hl{background:linear-gradient(100deg,#CE9C38 0%,#F4EBDD 38%,#CE9C38 62%,#B08D62 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-#hero.hgo h1 .hwi.hl{animation:hwIn 1s cubic-bezier(.16,1,.3,1) calc(var(--i)*65ms + 120ms) both,hwShine 4.5s linear 2.4s infinite}
-@keyframes hwShine{to{background-position:-250% 0}}
-#hero.hdone h1 .hw{animation:hwFloat 5.2s ease-in-out calc(var(--i)*-.45s) infinite}
-@keyframes hwFloat{50%{translate:0 -.05em}}
-#hero h1::after{content:"";display:block;height:3px;width:0;margin-top:.55em;border-radius:3px;background:linear-gradient(90deg,#CE9C38,rgba(206,156,56,0))}
-#hero.hgo h1::after{animation:hwRule 1.3s 1.1s cubic-bezier(.2,.8,.2,1) forwards}
-@keyframes hwRule{to{width:min(180px,45%)}}
-@media(max-width:900px){#hero h1{font-size:clamp(1.4rem,6vw,1.85rem)!important;line-height:1.16!important}}
-@media(max-width:380px){#hero h1{font-size:1.3rem!important}}
-@media(prefers-reduced-motion:reduce){html.hjs #hero:not(.hgo) h1 .hwi{opacity:1;transform:none;filter:none}#hero.hgo h1 .hwi,#hero.hdone h1 .hw,#hero.hgo h1::after{animation:none!important}#hero h1::after{width:min(180px,45%)}}
-</style>
 <script>
-/* ===== Hero text motion: word-by-word reveal, gold shimmer, scroll drift ===== */
-(function(){try{
-const hero=document.getElementById('hero'),h=hero&&hero.querySelector('h1');
-if(!h||h.dataset.sp)return;h.dataset.sp='1';
-const txt=h.textContent.trim().replace(/\s+/g,' '),words=txt.split(' ');
-const hs=words.findIndex(w=>/^biggest$/i.test(w));
-const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-h.setAttribute('aria-label',txt);
-h.innerHTML=words.map((w,i)=>'<span class="hw" aria-hidden="true" style="--i:'+i+'"><span class="hwi'+(hs>-1&&i>=hs?' hl':'')+'" style="--i:'+i+'">'+esc(w)+'</span></span>').join(' ');
-document.documentElement.classList.add('hjs');
-const go=()=>{hero.classList.add('hgo');setTimeout(()=>hero.classList.add('hdone'),2800)};
-const pre=document.getElementById('pre');
-if(!pre||pre.classList.contains('x')||!document.body.contains(pre))setTimeout(go,150);
-else{const mo=new MutationObserver(()=>{if(pre.classList.contains('x')){mo.disconnect();setTimeout(go,350)}});mo.observe(pre,{attributes:true,attributeFilter:['class']});setTimeout(()=>{mo.disconnect();go()},5000)}
-setTimeout(go,6500);
-/* scroll drift: heading eases up and softens as the hero scrolls away */
-let q=0;const drift=()=>{q=0;const k=Math.min(1,Math.max(0,scrollY/Math.max(1,innerHeight*.9)));h.style.translate='0 '+(-k*38).toFixed(1)+'px';h.style.opacity=(1-k*.55).toFixed(3)};
-addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(drift)}},{passive:true});
-}catch(err){console.warn('hero motion',err);try{document.documentElement.classList.remove('hjs')}catch(e){}}})();
-</script>
-<script>
-/* ===== Mobile services v2: sticky swipeable tabs + one complete card at a time ===== */
+/* ===== Mobile services: scroll feed (phones/tablets only, desktop untouched) ===== */
 (function(){try{
 const host=document.getElementById('svw');if(!host||typeof SVC==='undefined'||typeof svBody!=='function')return;
 const mq=matchMedia('(max-width:900px)'),RMo=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const intro=document.querySelector('#services .w>p'),introOrig=intro?intro.textContent:'';
-const SHORT=['AI Automation','Social Media','SEO · AEO · GEO','Content & Branding','Meta Ads','Photo & Video','3D Website','Patient App','Brand Sponsorship','Digital Education'];
-const lab=i=>SHORT.length===SVC.length?SHORT[i]:SVC[i][0];
-const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-const pad=n=>String(n+1).padStart(2,'0');
-let box=null,tabs=null,card=null,ct=null,pv=null,nx=null,cur=0,T=0,raf=0,last=0,vio=null,navH=58;
-const playV=v=>{v.muted=true;v.defaultMuted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.playsInline=true;v.loop=true;const p=v.play();if(p&&p.catch)p.catch(()=>{})};
-function count(root){if(RMo)return;root.querySelectorAll('.pr2 b').forEach(b=>{const o=b.dataset.o||(b.dataset.o=b.textContent),m=o.match(/\d[\d,]*/);if(!m)return;const to=+m[0].replace(/,/g,''),t0=performance.now()+200,d=800;const f=n=>{const k=Math.min(1,Math.max(0,(n-t0)/d)),e=1-Math.pow(1-k,3);b.textContent=o.replace(m[0],Math.round(to*e).toLocaleString('en-US'));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}
-
-/* media: a canvas preview shows instantly; the real video fades in over it when it is ready; if it fails the canvas stays */
-function media(root){
- const vid=root.querySelector('.vid');
- if(vid){
-  const v=vid.querySelector('video.vc');
-  if(v){
-   const c=document.createElement('canvas');c.className='vc fb';c.width=(typeof LOW!=='undefined'&&LOW)?480:800;c.height=Math.round(c.width*9/16);vid.insertBefore(c,vid.firstChild);
-   const ok=()=>vid.classList.add('vready','ready');
-   if(v.readyState>=2)ok();
-   v.addEventListener('loadeddata',ok,{once:true});v.addEventListener('playing',ok,{once:true});
-   v.addEventListener('error',()=>{v.remove()},{once:true});
-  }
-  const r=vid.querySelector('.rvp video');if(r)r.addEventListener('error',()=>{const b=r.closest('.rvp');if(b)b.remove()},{once:true});
- }
- root.querySelectorAll('.pfm video').forEach(v=>{v.addEventListener('loadeddata',()=>v.classList.add('rd'),{once:true});v.addEventListener('error',()=>v.remove(),{once:true})});
- root.querySelectorAll('.pfm img').forEach(im=>{if(im.complete&&im.naturalWidth)im.classList.add('rd');else{im.addEventListener('load',()=>im.classList.add('rd'),{once:true});im.addEventListener('error',()=>im.remove(),{once:true})}});
- if(vio)vio.disconnect();
- vio=new IntersectionObserver(es=>es.forEach(en=>{const v=en.target;if(en.isIntersecting){if(v.closest('.pfm')&&v.preload==='none')v.preload='metadata';playV(v)}else v.pause()}),{threshold:.2});
- root.querySelectorAll('video').forEach(v=>vio.observe(v));
-}
-
-function render(i,dir,user){
- i=(i+SVC.length)%SVC.length;cur=i;T=0;
- card.classList.remove('go','back');
- const html=svBody(i,0).replace(/ autoplay(?=[\s>])/g,'').replace(/preload="metadata"/,'preload="auto"');
- card.innerHTML='<div class="svp sx-p"><div class="pc">'+html+'</div></div>';
- card.querySelectorAll('[data-full],[data-tog]').forEach(b=>b.remove());
- card.querySelectorAll('.row').forEach(r=>{if(!r.children.length)r.remove()});
- card.querySelectorAll('.pc>*').forEach((c,k)=>c.style.setProperty('--k',Math.min(k,9)));
- if(dir<0)card.classList.add('back');
- void card.offsetWidth;if(!RMo)card.classList.add('go');
- media(card);count(card);
- tabs.querySelectorAll('button').forEach((b,k)=>{const on=k===i;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false')});
- const b=tabs.children[i];if(b)tabs.scrollTo({left:b.offsetLeft-(tabs.clientWidth-b.offsetWidth)/2,behavior:(RMo||!user)?'auto':'smooth'});
- ct.textContent=pad(i)+' / '+SVC.length;
- pv.querySelector('span').textContent=lab((i+SVC.length-1)%SVC.length);nx.querySelector('span').textContent=lab((i+1)%SVC.length);
- [i-1,i+1].forEach(k=>{const n=(k+SVC.length)%SVC.length;if(typeof VID!=='undefined'&&VID[n]){const im=new Image();im.src=VID[n].replace('.mp4','.jpg')}});
- if(user){const top=navH+tabs.offsetHeight,r=card.getBoundingClientRect();if(r.top<top+4||r.top>innerHeight*.65)scrollTo({top:Math.max(0,scrollY+r.top-top-10),behavior:RMo?'auto':'smooth'})}
-}
+const intro=document.querySelector('#services .w>p'),introOrig=intro?intro.textContent:'',h2=document.querySelector('#services .w>h2'),h2Orig=h2?h2.innerHTML:'';
+let PVH=innerHeight,lastW=innerWidth,feed=null,io=null,vio=null,raf=0,loopId=0,last=0;const T={};
+const words=el=>{if(!el)return;const t=el.textContent.trim().split(/\s+/);el.innerHTML=t.map((w,j)=>'<span class="w1"><span style="--j:'+j+'">'+w.replace(/&/g,'&amp;')+'</span></span>').join(' ')};
+function count(card){if(RMo)return;card.querySelectorAll('.pr2 b').forEach(b=>{const o=b.dataset.o||(b.dataset.o=b.textContent),m=o.match(/\d[\d,]*/);if(!m)return;const to=+m[0].replace(/,/g,''),t0=performance.now()+700,d=1200;const f=n=>{const k=Math.min(1,Math.max(0,(n-t0)/d)),e=1-Math.pow(1-k,3);b.textContent=o.replace(m[0],Math.round(to*e).toLocaleString('en-US'));if(k<1)requestAnimationFrame(f)};b.textContent=o.replace(m[0],'0');requestAnimationFrame(f)})}
+const pad=n=>String(n+1).padStart(2,'0'),cl=(v,a,b)=>Math.min(b,Math.max(a,v));
 
 function build(){
- if(box)return;
- const nv=document.querySelector('nav');navH=nv?Math.round(nv.getBoundingClientRect().height):58;
- if(intro)intro.textContent='Tap a service to see its demo, what’s included and pricing. Swipe left or right to move between services.';
- box=document.createElement('div');box.id='svm';box.className='sx';box.style.setProperty('--sxt',navH+'px');
- box.innerHTML='<div class="sx-tabs" role="tablist" aria-label="Services">'+SVC.map((s,i)=>'<button type="button" role="tab" data-i="'+i+'"><i>'+pad(i)+'</i><span>'+esc(lab(i))+'</span></button>').join('')+'</div><article class="sx-card" aria-live="polite"></article><div class="sx-nav"><button type="button" class="sx-pv" data-d="-1"><b>←</b><span></span></button><em class="sx-ct"></em><button type="button" class="sx-nx" data-d="1"><span></span><b>→</b></button></div>';
- host.insertAdjacentElement('afterend',box);
- tabs=box.querySelector('.sx-tabs');card=box.querySelector('.sx-card');ct=box.querySelector('.sx-ct');pv=box.querySelector('.sx-pv');nx=box.querySelector('.sx-nx');
- box.addEventListener('click',e=>{
-  const t=e.target.closest('.sx-tabs button');if(t){const n=+t.dataset.i;if(n!==cur)render(n,n>cur?1:-1,true);return}
-  const n=e.target.closest('.sx-nav button');if(n){const d=+n.dataset.d;render(cur+d,d,true);return}
-  const g=e.target.closest('[data-goto]');if(g){e.stopPropagation();e.preventDefault();render(+g.dataset.goto,1,true)}
- },true);
- tabs.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const d=e.key==='ArrowRight'?1:-1;render(cur+d,d,true);const b=tabs.children[cur];if(b)b.focus()}});
- let sx=0,sy=0,st=0,ok=false;
- card.addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now();ok=!e.target.closest('.pft,.pfg,.rvp')},{passive:true});
- card.addEventListener('touchend',e=>{if(!ok)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.8&&Date.now()-st<700)render(cur+(dx<0?1:-1),dx<0?1:-1,true)},{passive:true});
- const kick=()=>card.querySelectorAll('video').forEach(v=>{const r=v.getBoundingClientRect();if(v.paused&&r.bottom>0&&r.top<innerHeight)playV(v)});
- ['touchstart','click'].forEach(ev=>addEventListener(ev,kick,{passive:true,once:true}));
+ if(feed)return;
+ if(intro)intro.textContent='Content, video, websites, apps and AI. Everything your practice needs to grow, one service at a time.';
+ feed=document.createElement('div');feed.id='svm';
+ feed.innerHTML='<div class="svm-bar"><div><b id="svmN"></b><span id="svmT"></span></div><u><i id="svmP"></i></u></div>'
+  +SVC.map((s,i)=>`<article class="svm-i" data-i="${i}"><div class="svp"><span class="svm-sh"></span><div class="svm-n">${pad(i)} / ${SVC.length}</div><div class="pc">${svBody(i,0).replace(/ autoplay(?=[\s>])/g,'').replace(/preload="[a-z]+"/g,'preload="none"')}</div></div></article>`).join('');
+ host.insertAdjacentElement('afterend',feed);document.body.appendChild(feed.querySelector('.svm-bar'));
+ if(h2){words(h2);h2.classList.add('svm-h2')}
+ /* mobile: full service content is always shown, no See more */
+ feed.querySelectorAll('.svm-i').forEach(a=>{words(a.querySelector('.hd h3'));a.querySelectorAll('.dl li,.pkg .pkc').forEach((c,q)=>c.style.setProperty('--q',Math.min(q,7)))});
+ feed.querySelectorAll('.svm-i').forEach(a=>{[...a.querySelector('.pc').children].forEach((c,k)=>c.style.setProperty('--k',Math.min(k+1,8)))});
+ paginate();
+ // the hidden desktop preview should not keep playing video on phones
+ if(typeof svp!=='undefined')svp.querySelectorAll('video').forEach(v=>{v.removeAttribute('autoplay');v.pause()});
+ // videos: autoplay (muted + inline) whenever they are on screen, pause when off screen to save battery
+ const vids=[...feed.querySelectorAll('video')];
+ const playV=v=>{v.muted=true;v.defaultMuted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.playsInline=true;v.loop=true;const p=v.play();if(p&&p.catch)p.catch(()=>{})};
+ vids.forEach(v=>{v.autoplay=false;v.preload='none';v.muted=true;v.setAttribute('playsinline','')}); /* speed: a video only downloads when its card is on screen (the observer below plays it) */
+ vio=new IntersectionObserver(es=>es.forEach(en=>{const v=en.target;if(en.isIntersecting)playV(v);else v.pause()}),{rootMargin:'200px 0px 200px 0px',threshold:.01});
+ vids.forEach(v=>vio.observe(v));
+ // some phones (low-power mode) block the first autoplay: retry on the first touch/scroll
+ const kick=()=>{vids.forEach(v=>{const r=v.getBoundingClientRect();if(v.paused&&r.bottom>0&&r.top<innerHeight)playV(v)})};
+ ['touchstart','scroll','click'].forEach(ev=>addEventListener(ev,kick,{passive:true,once:ev!=='scroll'}));
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)kick()});
- render(0,0,false);
- raf=requestAnimationFrame(loop);
-}
-function destroy(){
- if(!box)return;cancelAnimationFrame(raf);if(vio){vio.disconnect();vio=null}
- box.remove();box=null;if(intro)intro.textContent=introOrig;
+ io=new IntersectionObserver(es=>es.forEach(en=>{en.target.dataset.vis=en.isIntersecting?'1':''}),{rootMargin:'-8% 0px -8% 0px'});
+ feed.querySelectorAll('.svm-i').forEach(a=>io.observe(a));
+ // clicks inside the feed: remember which service, and make the "See AI Automation" link scroll to that card
+ feed.addEventListener('click',e=>{
+  const a=e.target.closest('.svm-i');if(a)sa=+a.dataset.i;
+  const sm=e.target.closest('.svm-sm');if(sm){const a=sm.closest('.svm-i'),o=a.classList.toggle('open');sm.setAttribute('aria-expanded',o);sm.firstChild.textContent=o?'See less':'See more';if(!o){const r=a.getBoundingClientRect();if(r.top<70)a.scrollIntoView({block:'start'})}return}
+  const g=e.target.closest('[data-goto]');
+  if(g){e.stopPropagation();e.preventDefault();const t=feed.querySelector('.svm-i[data-i="'+g.dataset.goto+'"]');if(t)t.scrollIntoView({behavior:RMo?'auto':'smooth',block:'start'})}
+ },true);
+ addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
+ loopId=requestAnimationFrame(loop);
+ upd();
 }
 
-/* canvas preview (shown while a video loads, and for services that have no video) */
-function loop(now){raf=requestAnimationFrame(loop);
- if(!box||document.hidden||now-last<(typeof isLite!=='undefined'&&isLite?66:33))return;
- const dt=Math.min((now-last)/1000,.1);last=now;
- const vid=card.querySelector('.vid');if(!vid||vid.classList.contains('vready'))return;
- const c=vid.querySelector('canvas.vc');if(!c)return;
- const r=c.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
- T+=(typeof vpz!=='undefined'&&vpz)?0:dt;
- const [tt,L,p,N]=vframe(c.getContext('2d'),cur,T,c.width,c.height);
- vid.classList.add('ready');
- const cap=vid.querySelector('.cap'),vp=vid.querySelector('.vp i'),vt=vid.querySelector('.vt');
- if(cap)cap.textContent=L.slice(0,Math.floor(Math.min(1,p*2.2)*L.length))+(T%1<.5?'▍':'');
- if(vp)vp.style.width=(tt/(N*3)*100)+'%';
- if(vt)vt.textContent='00:'+String(Math.floor(tt)).padStart(2,'0')+' / 00:'+String(N*3).padStart(2,'0');
+/* split each service into screen-sized pages; scrolling swaps the page (old content hides, next appears) */
+function paginate(){
+ const probe=document.createElement('div');probe.style.cssText='position:absolute;visibility:hidden;height:100svh;width:1px';document.body.appendChild(probe);PVH=probe.offsetHeight||innerHeight;probe.remove();
+ const A=PVH-80-32-54-14-44;
+ const mh=el=>{const c=getComputedStyle(el);return el.offsetHeight+(parseFloat(c.marginTop)||0)+(parseFloat(c.marginBottom)||0)};
+ feed.querySelectorAll('.svm-i').forEach((art,idx)=>{
+  const svp=art.querySelector('.svp'),pc=art.querySelector('.pc');if(!svp||!pc)return;
+  const U=[];
+  [...pc.children].forEach(b=>{
+   if(b.matches('.dl')){[...b.children].forEach((li,k)=>U.push({el:li,h:mh(li)+8+(k?0:10),wrap:b}))}
+   else if(b.matches('.pkg')){[...b.children].forEach(c=>U.push({el:c,h:mh(c)+16,wrap:b}))}
+   else U.push({el:b,h:mh(b),ptt:b.matches('.ptt'),pfw:b.matches('.pfw')||!!b.querySelector('.pfw')});
+  });
+  const pack=cap=>{const pg=[];let cur=[],ch=0;
+   for(let k=0;k<U.length;k++){const u=U[k];let need=u.h;if(u.ptt&&U[k+1])need+=U[k+1].h;
+    if(cur.length&&ch+need>cap){pg.push(cur);cur=[];ch=0}
+    cur.push(u);ch+=u.h}
+   if(cur.length)pg.push(cur);return pg};
+  let pages=pack(A);
+  if(pages.length>1){const tot=U.reduce((a,u)=>a+u.h,0),mx=Math.max(...U.map(u=>u.h)),cap2=Math.min(A,Math.max(Math.ceil(tot/pages.length)+24,mx));const p2=pack(cap2);if(p2.length===pages.length)pages=p2}
+  const N=pages.length,frag=document.createDocumentFragment();
+  pages.forEach((pg,pi)=>{const d=document.createElement('div');d.className='svm-pg'+(pi?'':' act');d.dataset.p=pi;let lw=null,w=null;
+   pg.forEach(u=>{if(u.wrap){if(u.wrap!==lw){w=u.wrap.cloneNode(false);d.appendChild(w);lw=u.wrap}w.appendChild(u.el)}else{d.appendChild(u.el);lw=null;w=null}});
+   frag.appendChild(d)});
+  pc.innerHTML='';pc.appendChild(frag);
+  const mhd=document.createElement('div');mhd.className='svm-mh';
+  mhd.innerHTML='<b>'+pad(idx)+' / '+SVC.length+'</b><span>'+SVC[idx][0]+'</span>'+(N>1?'<em>'+pages.map((_,k)=>'<i'+(k?'':' class="on"')+'></i>').join('')+'</em><small>Scroll ↓</small>':'');
+  svp.insertBefore(mhd,pc);
+  svp.classList.toggle('end',N===1);
+  art.dataset.np=N;art._pi=0;
+  art.style.height=N>1?'calc('+(100+(N-1)*85+25)+'svh)':'100svh';
+  // a block taller than a screen (portfolio grid) scrolls inside its page
+  pc.querySelectorAll('.pfg').forEach(g=>{g.style.maxHeight=Math.max(160,A-120)+'px';g.style.overflowY='auto'});
+ });
 }
+function destroy(){
+ if(!feed)return;
+ removeEventListener('scroll',req);removeEventListener('resize',req);
+ cancelAnimationFrame(loopId);if(io)io.disconnect();io=null;if(vio)vio.disconnect();vio=null;
+ const sb=document.querySelector('.svm-bar');if(sb)sb.remove();feed.remove();feed=null;
+ if(intro)intro.textContent=introOrig;
+ if(h2){h2.innerHTML=h2Orig;h2.classList.remove('svm-h2','in')}
+}
+function req(){if(!raf)raf=requestAnimationFrame(upd)}
+
+// scroll-linked motion: each card rises + fades in as it enters, eases back as it leaves at the top
+function upd(){raf=0;if(!feed)return;
+ const vh=innerHeight;let cur=0;
+ feed.querySelectorAll('.svm-i').forEach((el,i)=>{
+  const r=el.getBoundingClientRect();
+  if(r.top<vh*.5)cur=i;
+  if(RMo||r.top<vh*.85){if(!el.classList.contains('in')){el.classList.add('in');count(el)}}else if(r.top>vh)el.classList.remove('in');
+  if(r.bottom>0&&r.top<vh)el.style.setProperty('--py',cl((r.top+r.height/2-vh/2)/vh,-1,1).toFixed(3));
+  const np=+el.dataset.np;if(np>1){const pi=cl(Math.round((70-r.top)/(PVH*.85)),0,np-1);if(el._pi!==pi){el._pi=pi;el.querySelectorAll('.svm-pg').forEach(g=>g.classList.toggle('act',+g.dataset.p===pi));el.querySelectorAll('.svm-mh em i').forEach((d,k)=>d.classList.toggle('on',k===pi));el.querySelector('.svp').classList.toggle('end',pi===np-1)}}
+ });
+ feed.querySelectorAll('.svm-i').forEach((el,i)=>{el.classList.toggle('past',i<cur);const q=el.getBoundingClientRect();el.classList.toggle('cur',q.top<=vh*.5&&q.bottom>vh*.5)});
+ if(h2){const hr=h2.getBoundingClientRect();if(RMo||hr.top<vh*.9)h2.classList.add('in');else if(hr.top>vh*1.1)h2.classList.remove('in')}
+ const N=SVC.length,nEl=document.getElementById('svmN'),tEl=document.getElementById('svmT'),pEl=document.getElementById('svmP');
+ if(nEl){nEl.innerHTML=pad(cur)+'<small>/ '+N+'</small>';tEl.textContent=SVC[cur][0];pEl.style.setProperty('--p',((cur+1)/N*100)+'%')}
+ const bar=document.querySelector('.svm-bar'),fr=feed.getBoundingClientRect();if(bar)bar.classList.toggle('show',fr.top<vh*.5&&fr.bottom>vh*.5);
+}
+
+// canvas preview (only the SEO card uses one); other cards use real videos
+function loop(now){loopId=requestAnimationFrame(loop);
+ if(!feed||document.hidden||now-last<(typeof isLite!=='undefined'&&isLite?66:33))return;
+ const dt=Math.min((now-last)/1000,.1);last=now;
+ feed.querySelectorAll('.svm-i[data-vis="1"]').forEach(a=>{
+  const c=a.querySelector('canvas.vc');if(!c||!c.offsetParent)return;const i=+a.dataset.i;
+  T[i]=(T[i]||0)+((typeof vpz!=='undefined'&&vpz)?0:dt);
+  const [tt,L,p,N]=vframe(c.getContext('2d'),i,T[i],c.width,c.height);
+  const cap=a.querySelector('.cap'),vp=a.querySelector('.vp i'),vt=a.querySelector('.vt');
+  if(cap)cap.textContent=L.slice(0,Math.floor(Math.min(1,p*2.2)*L.length))+(T[i]%1<.5?'▍':'');
+  if(vp)vp.style.width=(tt/(N*3)*100)+'%';
+  if(vt)vt.textContent='00:'+String(Math.floor(tt)).padStart(2,'0')+' / 00:'+String(N*3).padStart(2,'0');
+ });
+}
+
 const sync=()=>mq.matches?build():destroy();
-let lw=innerWidth,rt=0;addEventListener('resize',()=>{if(innerWidth===lw||!box)return;lw=innerWidth;clearTimeout(rt);rt=setTimeout(()=>{const nv=document.querySelector('nav');navH=nv?Math.round(nv.getBoundingClientRect().height):58;box.style.setProperty('--sxt',navH+'px')},200)});
+const repag=()=>{if(!feed)return;const y=scrollY;destroy();build();scrollTo({top:y,behavior:'instant'})};
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>setTimeout(repag,150));
+let rt=0;addEventListener('resize',()=>{if(innerWidth===lastW)return;lastW=innerWidth;clearTimeout(rt);rt=setTimeout(repag,300)});
 mq.addEventListener?mq.addEventListener('change',sync):mq.addListener(sync);
 sync();
-}catch(err){console.warn('mobile services v2',err)}})();
+}catch(err){console.warn('mobile services feed',err)}})();
 </script>
 <style id="tt-css">
 /* ===== Client testimonials: one story per service ===== */
