@@ -3284,4 +3284,57 @@ body:not(.light) #team .team .card small{color:#E8C46A}
 @media(prefers-reduced-motion:reduce){#team .team .tavi,section.on #team .team .card .tavi{animation:none!important}}
 .lite #team .team .tavi{animation:none!important}
 </style>
+<style id="team-sleek">
+/* ===== Team: sleek modern layout (overrides #team-pro) =====
+   Founder featured full-width (photo + full story), the rest in a clean 3-up grid. Inset rounded portraits, quiet typography,
+   and motion that stays elegant: photos wipe in, a light sheen glides across them, soft gold light drifts behind, cards lift on hover. */
+#team{position:relative;overflow:hidden}
+#team::before{content:"";position:absolute;left:-10%;right:-10%;top:-12%;height:75%;z-index:0;pointer-events:none;
+ background:radial-gradient(38% 48% at 18% 32%,rgba(206,156,56,.17),transparent 70%),radial-gradient(34% 44% at 82% 22%,rgba(176,141,98,.15),transparent 70%);animation:ts-drift 16s ease-in-out infinite alternate}
+@keyframes ts-drift{from{transform:translate3d(-3%,0,0) scale(1)}to{transform:translate3d(5%,7%,0) scale(1.12)}}
+#team .tm-bg span{color:rgba(176,141,98,.14)}
+#team .team{max-width:1180px!important;gap:1.7rem!important;align-items:stretch!important}
+#team .team:has(.card.open){align-items:flex-start!important}
+#team .team .card{flex:0 1 calc(33.333% - 1.15rem);min-width:270px;padding:10px 10px 1.4rem!important;border-radius:24px;border:1px solid rgba(176,141,98,.3);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 16px 38px rgba(43,29,19,.1);transform:none!important;
+ transition:translate .55s cubic-bezier(.2,.8,.2,1),box-shadow .5s,border-color .4s}
+#team .team .card:hover{translate:0 -9px;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 32px 64px rgba(43,29,19,.22);border-color:rgba(206,156,56,.75)}
+#team .team .tm-no{display:none}
+/* portrait: inset, rounded, wipes in, sheen glides across */
+#team .team .av.tav{border-radius:17px;margin:0 0 1.15rem;aspect-ratio:4/5}
+#team .team .av.tav::after{display:block;content:"";position:absolute;inset:0;border:0;border-radius:0;z-index:2;pointer-events:none;
+ background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.3) 50%,transparent 62%);transform:translateX(-130%);
+ animation:ts-sheen 8s ease-in-out calc(var(--ti,0)*-1.7s) infinite}
+@keyframes ts-sheen{0%,55%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
+section.on #team .team .card .av.tav,section.on #team .team .card:hover .av.tav{animation:ts-wipe 1.15s cubic-bezier(.2,.8,.2,1) calc(var(--ti,0)*.13s + .2s) backwards}
+@keyframes ts-wipe{from{clip-path:inset(100% 0 0 0 round 17px)}to{clip-path:inset(0 0 0 0 round 17px)}}
+#team .team .av.tav::before{height:38%;background:linear-gradient(180deg,transparent,rgba(29,20,13,.55))}
+/* text */
+#team .team .card h3,#team .team .card small,#team .team .card .tb,#team .team .tm-sk,#team .team .tact{margin-left:1rem;margin-right:1rem}
+#team .team .card h3{font:500 1.3rem/1.2 Jost,sans-serif;letter-spacing:.005em;margin-bottom:.3rem}
+#team .team .card h3::after{content:"";display:block;height:2px;width:30px;margin-top:.55rem;border-radius:2px;background:linear-gradient(90deg,#CE9C38,rgba(206,156,56,0));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+#team .team .card:hover h3::after{width:84px}
+#team .team .card small{display:block;align-self:stretch;padding:0;border:0;border-radius:0;background:none;margin-bottom:1rem;
+ font:600 .66rem/1.5 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#9c7a52}
+body:not(.light) #team .team .card small{color:#E8C46A}
+#team .team .tm-sk span{font-size:.68rem;padding:.32rem .62rem .32rem .5rem;background:transparent}
+#team .team .card .tb{font-size:.9rem;line-height:1.62}
+#team .team .tact .btn{border-radius:12px;padding:.8rem 1rem;transition:transform .3s,box-shadow .3s,background .3s}
+#team .team .tact .btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(43,29,19,.28)}
+/* founder: wide feature card on desktop */
+@media(min-width:901px){
+ #team .team .card:first-child{flex:1 1 100%;display:grid!important;grid-template-columns:minmax(300px,41%) 1fr;grid-template-rows:auto auto auto 1fr auto;column-gap:2.8rem;align-items:start;padding:12px!important}
+ #team .team .card:first-child .av.tav{grid-column:1;grid-row:1/-1;aspect-ratio:auto;height:100%;min-height:560px;margin:0}
+ #team .team .card:first-child .tavi{object-position:62% 14%}
+ #team .team .card:first-child>h3,#team .team .card:first-child>small,#team .team .card:first-child>.tm-sk,#team .team .card:first-child>.tb,#team .team .card:first-child>.tact{grid-column:2;margin-left:0;margin-right:1.8rem}
+ #team .team .card:first-child>h3{font-size:2.1rem;margin-top:1.8rem}
+ #team .team .card:first-child>.tb{display:block;-webkit-line-clamp:unset;overflow:visible;min-height:0;font-size:.95rem;line-height:1.72;opacity:.92;max-width:none}
+ #team .team .card:first-child .tmore{display:none}
+ #team .team .card:first-child>.tact{align-self:end;margin-top:1.2rem;max-width:300px}
+}
+@media(max-width:620px){#team .team .card{flex:1 1 100%;max-width:440px}}
+@media(prefers-reduced-motion:reduce){#team::before,#team .team .av.tav::after,section.on #team .team .card .av.tav{animation:none!important}}
+.lite #team::before,.lite #team .team .av.tav::after{animation:none}
+.lite #team .team .av.tav::after{display:none}
+</style>
 </body></html>
