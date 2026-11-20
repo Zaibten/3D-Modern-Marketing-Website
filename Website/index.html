@@ -3384,16 +3384,21 @@ body:not(.light) #team .team .card small{color:#E8C46A}
  cards.forEach(function(c){if(!c.dataset.k)c.dataset.k='h'});
  tabs.forEach(function(t){t.addEventListener('click',function(){tabs.forEach(function(x){x.classList.toggle('on',x===t);x.setAttribute('aria-selected',x===t?'true':'false')});
   cards.forEach(function(c){c.hidden=!(t.dataset.k==='all'||c.dataset.k===t.dataset.k)});var g=document.querySelector('#work .wgrid');if(g)g.scrollLeft=0;setTimeout(function(){dispatchEvent(new Event('scroll'))},60)})});
- /* EDIT HERE: slug (media/films/<slug>.mp4 + <slug>.jpg, all lowercase), title, part. A card only shows once its poster exists. */
- var FILMS=[['video1-part1','Film 1','Part 1'],['video1part2','Film 1','Part 2'],['video2part1','Film 2','Part 1'],['video2part2','Film 2','Part 2'],['video2clip3','Film 2','Clip 3'],['video3part1','Film 3','Part 1'],['video3part2','Film 3','Part 2'],['video3-clip','Film 3','Clip'],['vid3p1','Film 3','Extra cut'],['c0133','Behind the scenes','Clip C0133']];
+ /* EDIT HERE: exact file name inside /media (case matters on Vercel), title, part. A card appears only if the file exists. */
+ var FILMS=[['VIDEO1-PART1.mp4','Film 1','Part 1'],['VIDEO1PART2.mp4','Film 1','Part 2'],['VIDEO2PART1.mp4','Film 2','Part 1'],['VIDEO2PART2.mp4','Film 2','Part 2'],['VIDEO2CLIP3.mp4','Film 2','Clip 3'],['video3part1.mp4','Film 3','Part 1'],['Video3PART2.mp4','Film 3','Part 2'],['VIDEO3-CLIP.mp4','Film 3','Clip'],['vid3p1.mp4','Film 3','Extra cut'],['C0133.MP4','Behind the scenes','Clip C0133']];
  var targets=[[document.getElementById('wfull'),document.getElementById('wfullg')],[document.getElementById('r3full'),document.getElementById('r3fullg')]].filter(function(t){return t[0]&&t[1]});
  if(!targets.length)return;
- FILMS.forEach(function(f,fi){targets.forEach(function(t){
-  var u='media/films/'+f[0]+'.mp4',c=document.createElement('button');c.type='button';c.className='wfull-c';c.dataset.o=fi;c.setAttribute('aria-label','Play '+f[1]+' '+f[2]);
-  c.innerHTML='<img class="wfull-p" alt="" decoding="async" src="media/films/'+f[0]+'.jpg"><u class="wfull-g2"></u><i class="pl"></i><b>'+f[1]+'</b><small>'+f[2]+'</small>';
-  var im=c.firstChild;im.addEventListener('load',function(){t[0].hidden=false});im.addEventListener('error',function(){c.remove()});
-  c.addEventListener('click',function(){var v=document.createElement('video');v.controls=true;v.autoplay=true;v.playsInline=true;v.preload='auto';v.poster=im.src;v.src=u;c.innerHTML='';c.appendChild(v);c.style.cursor='default'},{once:true});
-  var nx=[].slice.call(t[1].children).filter(function(x){return +x.dataset.o>fi})[0];nx?t[1].insertBefore(c,nx):t[1].appendChild(c)})})
+ var http=/^https?:$/.test(location.protocol);
+ var lio='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){lio.unobserve(e.target);e.target.preload='metadata';try{e.target.load()}catch(x){}}})},{rootMargin:'500px 0px'}):null;
+ function add(f,fi){targets.forEach(function(t){
+  var u='media/'+f[0],c=document.createElement('button');c.type='button';c.className='wfull-c';c.dataset.o=fi;c.setAttribute('aria-label','Play '+f[1]+' '+f[2]);
+  var v=document.createElement('video');v.muted=true;v.playsInline=true;v.setAttribute('playsinline','');v.preload='none';v.src=u+'#t=0.1';
+  v.addEventListener('loadedmetadata',function(){if(v.videoHeight>v.videoWidth)c.classList.add('vt')});
+  v.addEventListener('error',function(){if(!c.classList.contains('on'))c.remove()});
+  c.appendChild(v);c.insertAdjacentHTML('beforeend','<u class="wfull-g2"></u><i class="pl"></i><b>'+f[1]+'</b><small>'+f[2]+'</small>');
+  c.addEventListener('click',function(){if(c.classList.contains('on'))return;[].forEach.call(document.querySelectorAll('.wfull-c.on video'),function(o){o.pause()});c.classList.add('on');v.controls=true;v.muted=false;v.preload='auto';var p=v.play();p&&p.catch&&p.catch(function(){})});
+  var nx=[].slice.call(t[1].children).filter(function(x){return +x.dataset.o>fi})[0];nx?t[1].insertBefore(c,nx):t[1].appendChild(c);t[0].hidden=false;lio?lio.observe(v):(v.preload='metadata')})}
+ FILMS.forEach(function(f,fi){if(!http){add(f,fi);return}fetch('media/'+f[0],{method:'HEAD'}).then(function(r){if(r.ok)add(f,fi)}).catch(function(){})})
 }catch(e){}})();
 /* Reels: reveal + tap for sound */
 (function(){try{var g=document.getElementById('r3fg');if(!g)return;
@@ -3459,6 +3464,8 @@ rot(fm.querySelector('.f-reel'),[['media/dentist-reel.mp4','media/dentist-reel.j
 @keyframes mld-pu{0%,100%{transform:scale(.55);opacity:.7}50%{transform:scale(1);opacity:1}}
 @keyframes mld-bar{0%{transform:translateX(-110%)}100%{transform:translateX(280%)}}
 @media(prefers-reduced-motion:reduce){.mld::before,.mld mld-s::after{animation:none}.mld mld-r{animation-duration:2.4s}}
+.wfull-g{align-items:start}#work .wfull-c.vt,.r3f-full .wfull-c.vt{aspect-ratio:9/16}#work .wfull-g,.r3f-full .wfull-g{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}.wfull-c.on>.wfull-g2,.wfull-c.on>.pl,.wfull-c.on>b,.wfull-c.on>small{display:none}
+.wfull-c>video{z-index:0}
 .wfull-c>.wfull-p{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .wfull-c>.wfull-g2{position:absolute;inset:0;z-index:0;background:linear-gradient(transparent 45%,rgba(20,13,8,.88))}
 .wfull-c>.pl,.wfull-c>b,.wfull-c>small{z-index:1}.wfull-c>b,.wfull-c>small{position:relative}
